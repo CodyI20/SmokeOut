@@ -1416,10 +1416,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9061074071030230370, guid: 368443a408d30a64db7224a295e78dfc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e746cbd8ce0240a428e132481bd447a4, type: 2}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.57
+      value: -0.58304834
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
@@ -1429,22 +1434,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.53
+      value: 10.700854
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9116871
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.4108854
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
@@ -1459,7 +1464,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 48.521
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 368443a408d30a64db7224a295e78dfc,
         type: 3}
