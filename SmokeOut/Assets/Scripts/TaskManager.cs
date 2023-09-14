@@ -9,6 +9,9 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> predefinedTasks;
 
+    public int _trashItemsPickedUp = 0;
+    [SerializeField] private int _requiredTrashItemsPickedUp;
+
     private void Start()
     {
         InitializeTasks();
@@ -27,12 +30,11 @@ public class TaskManager : MonoBehaviour
         taskData.isComplete = false;
         GameObject taskItem = Instantiate(taskItemPrefab, taskListParent);
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
-        Button completeButton = taskItem.GetComponentInChildren<Button>();
 
         textComponent.text = taskData.taskName;
 
         // Attach a function to the complete button to toggle task completion
-        completeButton.onClick.AddListener(() => ToggleTaskComplete(taskData, textComponent));
+        //completeButton.onClick.AddListener(() => ToggleTaskComplete(taskData, textComponent));
 
         // Update text appearance based on the task's completion state
         if (taskData.isComplete)
@@ -54,6 +56,20 @@ public class TaskManager : MonoBehaviour
             RemoveTextStrikethrough(textComponent);
         }
     }
+
+    //void TrashTask()
+    //{
+    //    if(_trashItemsPickedUp == _requiredTrashItemsPickedUp)
+    //    {
+    //        foreach(TaskData taskData in predefinedTasks)
+    //        {
+    //            if(taskData.taskName == "Pick up trash")
+    //            {
+    //                ToggleTaskComplete(taskData, );
+    //            }
+    //        }
+    //    }
+    //}
 
     void SetTextStrikethrough(TextMeshProUGUI textComponent)
     {
