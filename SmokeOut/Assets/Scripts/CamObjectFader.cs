@@ -5,6 +5,7 @@ public class CamObjectFader : MonoBehaviour
 {
     List<ObjectFader> _fader;
     GameObject m_Player;
+    MeshRenderer m_PlayerRenderer;
     private void Awake()
     {
         _fader = new List<ObjectFader>();
@@ -13,6 +14,7 @@ public class CamObjectFader : MonoBehaviour
     void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_PlayerRenderer = m_Player.GetComponent<MeshRenderer>();
         if (m_Player == null) return;
     }
 
@@ -24,7 +26,7 @@ public class CamObjectFader : MonoBehaviour
 
     void CheckIfDoFade()
     {
-        Vector3 dir = m_Player.transform.position - transform.position;
+        Vector3 dir = m_Player.transform.position + new Vector3(0,-m_PlayerRenderer.bounds.size.y,0) - transform.position;
         Ray ray = new Ray(transform.position, dir);
         RaycastHit hit;
 
@@ -55,7 +57,7 @@ public class CamObjectFader : MonoBehaviour
             }
             foreach(ObjectFader obj in _fader.ToArray())
             {
-                if(hit.collider.gameObject.GetComponent<ObjectFader>() != obj)
+                if(obj != null && hit.collider.gameObject.GetComponent<ObjectFader>() != obj)
                 {
                     _fader.Remove(obj);
                     obj.DoFade = false;

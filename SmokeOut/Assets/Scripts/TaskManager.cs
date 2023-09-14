@@ -24,6 +24,7 @@ public class TaskManager : MonoBehaviour
 
     void CreateTaskItem(TaskData taskData)
     {
+        taskData.isComplete = false;
         GameObject taskItem = Instantiate(taskItemPrefab, taskListParent);
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
         Button completeButton = taskItem.GetComponentInChildren<Button>();

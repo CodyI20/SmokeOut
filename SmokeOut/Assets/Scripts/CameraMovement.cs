@@ -15,7 +15,15 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float dragSpeed = 10f;
     private Vector3 dragOrigin;
 
+    private Vector3 _initialCameraPlayerDistanceVector;
+    private bool lockCamera = false;
+
     [SerializeField] private CameraPanType panType;
+
+    private void Start()
+    {
+        _initialCameraPlayerDistanceVector = transform.position - PlayerMovement.player.transform.position;
+    }
 
     // Update is called once per frame
     void Update()
@@ -30,6 +38,14 @@ public class CameraMovement : MonoBehaviour
                 PanViewDrag();
                 break;
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            lockCamera ^= true;
+        }
+        if (lockCamera)
+        {
+            LockCameraOnPlayer();
+        }
     }
 
     void SwitchPanType()
@@ -39,6 +55,11 @@ public class CameraMovement : MonoBehaviour
             panType = (panType == CameraPanType.Pan) ? CameraPanType.MouseOutOfBounds : CameraPanType.Pan;
             Debug.Log(panType);
         }
+    }
+
+    void LockCameraOnPlayer()
+    {
+        transform.position = PlayerMovement.player.transform.position + _initialCameraPlayerDistanceVector;
     }
 
     void PanViewLeagueStyle()
