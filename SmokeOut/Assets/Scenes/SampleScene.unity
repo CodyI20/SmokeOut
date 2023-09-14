@@ -436,6 +436,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2851406931904032857, guid: 264e09cb2061d484d8e4258f71bd4ce2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d8fda6ab0318c59419461010fd139aa1, type: 2}
     - target: {fileID: 919132149155446097, guid: 264e09cb2061d484d8e4258f71bd4ce2,
         type: 3}
       propertyPath: m_Name
@@ -645,6 +650,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: closet
       objectReference: {fileID: 0}
+    - target: {fileID: 6881926668041067724, guid: 2a35efe6548291843adadc2c23600995,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ab15fdce6522ed4fad93f18e4b0e616, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -781,6 +791,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: carpet
       objectReference: {fileID: 0}
+    - target: {fileID: 1774748929912458602, guid: ffb58ef1b6ffd0c4e8d601dc0f0caebe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b9e71994ce31acb4490340d4ae1c8eb1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1262,6 +1277,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 170804495403957509, guid: f84a21c56608ef249a5c7ccd12e21b32,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee12e59a7e6cb0849b998daaabf828da, type: 2}
     - target: {fileID: 919132149155446097, guid: f84a21c56608ef249a5c7ccd12e21b32,
         type: 3}
       propertyPath: m_Name
@@ -1539,6 +1559,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1462845098285343638, guid: cdd839f194bb7b24d868d9ed2dacec62,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae4b2ad678b7812458180cf2dfda7a88, type: 2}
     - target: {fileID: 919132149155446097, guid: cdd839f194bb7b24d868d9ed2dacec62,
         type: 3}
       propertyPath: m_Name
