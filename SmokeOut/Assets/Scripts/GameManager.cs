@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManagerInstance { get; private set; }
     //private HashSet<RequiredPickUp> _allRequiredPickUpsInScene;
     private int _scoreToWin;
+    private DialogueManager _dialogueManager;
     [SerializeField] private GameObject _menuUI;
     [SerializeField] private GameObject _optionsUI;
 
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _dialogueManager = DialogueManager._dialogueManger;
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
     }
@@ -106,6 +108,18 @@ public class GameManager : MonoBehaviour
         {
             ToggleOverlayUI();
         }
+    }
+
+    void PauseGameWhenDialoguePlays()
+    {
+        if(_dialogueManager != null)
+        {
+            if (_dialogueManager.dialogueIsPlaying)
+                PauseGame();
+            else
+                ResumeGame();
+        }
+            
     }
 
     void PauseGame()
