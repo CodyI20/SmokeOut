@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
@@ -8,9 +7,6 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> predefinedTasks;
-
-    public int _trashItemsPickedUp = 0;
-    [SerializeField] private int _requiredTrashItemsPickedUp;
 
     private void Start()
     {
@@ -56,20 +52,6 @@ public class TaskManager : MonoBehaviour
             RemoveTextStrikethrough(textComponent);
         }
     }
-
-    //void TrashTask()
-    //{
-    //    if(_trashItemsPickedUp == _requiredTrashItemsPickedUp)
-    //    {
-    //        foreach(TaskData taskData in predefinedTasks)
-    //        {
-    //            if(taskData.taskName == "Pick up trash")
-    //            {
-    //                ToggleTaskComplete(taskData, );
-    //            }
-    //        }
-    //    }
-    //}
 
     void SetTextStrikethrough(TextMeshProUGUI textComponent)
     {

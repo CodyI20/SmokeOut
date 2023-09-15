@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -32,7 +30,7 @@ public class CameraMovement : MonoBehaviour
         switch (panType)
         {
             case CameraPanType.MouseOutOfBounds:
-                PanViewLeagueStyle();
+                PanViewWithMouse();
                 break;
             default:
                 PanViewDrag();
@@ -53,7 +51,6 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P)) //Swaps between camera movement types
         {
             panType = (panType == CameraPanType.Pan) ? CameraPanType.MouseOutOfBounds : CameraPanType.Pan;
-            Debug.Log(panType);
         }
     }
 
@@ -62,7 +59,7 @@ public class CameraMovement : MonoBehaviour
         transform.position = PlayerMovement.player.transform.position + _initialCameraPlayerDistanceVector;
     }
 
-    void PanViewLeagueStyle()
+    void PanViewWithMouse()
     {
         Vector3 pos = transform.position;
 

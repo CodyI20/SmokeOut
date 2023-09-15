@@ -14,9 +14,8 @@ public class ObjectPickUp : MonoBehaviour
         isInRange = Vector3.Distance(PlayerMovement.player.transform.position, transform.position) < pickupRange;
 
         // Check if the player is in range and the mouse cursor is hovering over the item.
-        if (isInRange && isHovering && Input.GetMouseButtonDown(0)) // Change the button (0) to the desired mouse button.
+        if (isInRange && isHovering && Input.GetMouseButtonDown(0))
         {
-            // Perform the pickup action here.
             PickUpItem();
         }
     }
@@ -35,9 +34,6 @@ public class ObjectPickUp : MonoBehaviour
 
     private void PickUpItem()
     {
-        // Implement your item pickup logic here.
-        // For example, you can disable the item's GameObject or add it to the player's inventory.
-        // You might also want to play a sound effect or show a message to indicate the item has been picked up.
         gameObject.SetActive(false); // Disables the item.
         Destroy(gameObject,2f);
     }

@@ -1752,6 +1752,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22136afaa90df104183c032b55939aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1289573726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047484075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1779dfeeb7067934b8df40aaf56a9ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680022193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,9 +1818,9 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: -50
+  m_Spacing: -63
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -4581,6 +4593,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1289573725}
+    - targetCorrespondingSourceObject: {fileID: 6804844384046265311, guid: 70553fe91d5e3b24791e0ed833343495,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1289573726}
   m_SourcePrefab: {fileID: 100100000, guid: 70553fe91d5e3b24791e0ed833343495, type: 3}
 --- !u!33 &4461741739402264623
 MeshFilter:
