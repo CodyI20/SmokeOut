@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cef0d4e18ea343044a66378514a34605, type: 3}
-  m_Name: CarryBox
+  m_Name: TV
   m_EditorClassIdentifier: 
-  taskName: Carry the heavy box
+  taskName: Turn on the TV
   isComplete: 0

@@ -4,5 +4,6 @@ using UnityEngine;
 public class TaskData : ScriptableObject
 {
     public string taskName;
+    public string taskDescription;
     public bool isComplete;
 }

@@ -1970,8 +1970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.46514893, y: 0.092552185}
-  m_SizeDelta: {x: 156.4705, y: 193.5412}
+  m_AnchoredPosition: {x: 4.9863, y: 7.9618}
+  m_SizeDelta: {x: 115.2914, y: 158.9508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680022195
 MonoBehaviour:
@@ -1991,12 +1991,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: -63
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!1 &1841091893
@@ -4617,7 +4617,7 @@ PrefabInstance:
     - target: {fileID: 6901734588315207641, guid: 70553fe91d5e3b24791e0ed833343495,
         type: 3}
       propertyPath: predefinedTasks.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6901734588315207641, guid: 70553fe91d5e3b24791e0ed833343495,
         type: 3}
@@ -4636,6 +4636,12 @@ PrefabInstance:
       propertyPath: predefinedTasks.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: 8467ff0e8d14a034886326b2615689c0,
+        type: 2}
+    - target: {fileID: 6901734588315207641, guid: 70553fe91d5e3b24791e0ed833343495,
+        type: 3}
+      propertyPath: predefinedTasks.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c5205a2f11e08a4f98c3d8d710fc9bb,
         type: 2}
     - target: {fileID: 6901734588315207641, guid: 70553fe91d5e3b24791e0ed833343495,
         type: 3}

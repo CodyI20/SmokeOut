@@ -7,6 +7,15 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> predefinedTasks;
+    private HashSet<GameObject> taskItems = new HashSet<GameObject>();
+
+    public static TaskManager _taskManager { get; private set; }
+
+    private void Awake()
+    {
+        if (_taskManager == null)
+            _taskManager = this;
+    }
 
     private void Start()
     {
@@ -25,9 +34,12 @@ public class TaskManager : MonoBehaviour
     {
         taskData.isComplete = false;
         GameObject taskItem = Instantiate(taskItemPrefab, taskListParent);
+        TaskIdentifier taskIdentifier = taskItem.GetComponent<TaskIdentifier>();
+        taskIdentifier.identifier = taskData.taskName;
+        taskItems.Add(taskItem);
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        textComponent.text = taskData.taskName;
+        textComponent.text = taskData.taskDescription;
 
         // Attach a function to the complete button to toggle task completion
         //completeButton.onClick.AddListener(() => ToggleTaskComplete(taskData, textComponent));
@@ -36,6 +48,18 @@ public class TaskManager : MonoBehaviour
         if (taskData.isComplete)
         {
             SetTextStrikethrough(textComponent);
+        }
+    }
+
+    public void MarkTaskAsComplete(string taskName)
+    {
+        foreach(GameObject task in taskItems)
+        {
+            if(task.GetComponent<TaskIdentifier>().identifier == taskName)
+            {
+                SetTextStrikethrough(task.GetComponentInChildren<TextMeshProUGUI>());
+                break;
+            }
         }
     }
 
@@ -61,5 +85,10 @@ public class TaskManager : MonoBehaviour
     void RemoveTextStrikethrough(TextMeshProUGUI textComponent)
     {
         textComponent.fontStyle &= ~FontStyles.Strikethrough;
+    }
+
+    private void OnDestroy()
+    {
+        _taskManager = null;
     }
 }

@@ -102,6 +102,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         dialogueBox.SetActive(false);
+        TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
         HideOptions();
     }
 
