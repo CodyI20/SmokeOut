@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _dialogueManager = DialogueManager._dialogueManger;
+        _dialogueManager = DialogueManager._dialogueManager;
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
     }
@@ -112,13 +112,6 @@ public class GameManager : MonoBehaviour
 
     void PauseGameWhenDialoguePlays()
     {
-        if(_dialogueManager != null)
-        {
-            if (_dialogueManager.dialogueIsPlaying)
-                PauseGame();
-            else
-                ResumeGame();
-        }
             
     }
 

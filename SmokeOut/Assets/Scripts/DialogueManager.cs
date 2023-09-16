@@ -1,76 +1,124 @@
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    /// <summary>
-    /// This class serves as a base for all dialogue-related interactions
-    /// </summary>
-
-    //Creating a singleton patter for the dialogue manager so that it can be accessed by any script with ease (and since there will only be one dialogue manager in the whole project)
-    public static DialogueManager _dialogueManger {  get; private set; }
-
-    public bool dialogueIsPlaying = false;
-    public Queue<string> sentences; //This variable will keep track of all the sentences that are about to show up, for a smooth interaction
-
+    public static DialogueManager _dialogueManager {  get; private set; }
+    public bool dialogueEnded = false;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private Button[] optionButtons; // Add buttons for options
+
+    private Queue<Dialogue> dialogueQueue;
+    private Dialogue currentDialogue; // Track the current dialogue
+
+    [SerializeField] private GameObject choiceButtonPrefab; // Reference to the choice button prefab
+    [SerializeField] private Transform choiceButtonContainer; // Reference to the container for choice buttons
+
     private void Awake()
     {
-        if (_dialogueManger == null)
-            _dialogueManger = this;
-        sentences = new Queue<string>();
+        if (_dialogueManager == null)
+            _dialogueManager = this;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        dialogueQueue = new Queue<Dialogue>();
+        HideOptions();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartDialogue(Dialogue[] dialogues)
     {
-        
-    }
+        dialogueQueue.Clear();
 
-    public void BeginDialogueInteraction(Dialogue dialogue)
-    {
-        Debug.Log("Starting interaction...");
-        //sentences.Clear();
-        //_dialogueManger.dialogueIsPlaying = true;
-
-        //nameText.text = dialogue.name;
-        //foreach (string sentence in dialogue.dialogueLines)//Queue all the sentences from the current dialogue
-        //{
-        //    sentences.Enqueue(sentence);
-        //}
-        //ContinueDialogueInteraction();
-    }
-
-    private void ContinueDialogueInteraction()
-    {
-        if(sentences.Count == 0)
+        foreach (Dialogue dialogue in dialogues)
         {
-            EndDialogueInteraction();
+            dialogueQueue.Enqueue(dialogue);
+        }
+
+        DisplayNextDialogue();
+    }
+
+    public void DisplayNextDialogue()
+    {
+        if (dialogueQueue.Count == 0)
+        {
+            dialogueEnded = true;
+            EndDialogue();
             return;
         }
 
-        dialogueText.text = sentences.Dequeue();
-        if (Input.GetKeyDown(KeyCode.Space))
+        currentDialogue = dialogueQueue.Dequeue();
+        nameText.text = currentDialogue.speakerName;
+        dialogueText.text = currentDialogue.dialogueText;
+        dialogueBox.SetActive(true);
+
+        HideOptions();
+        if (currentDialogue.options != null && currentDialogue.options.Count > 0)
         {
-            ContinueDialogueInteraction();
+            for (int i = 0; i < currentDialogue.options.Count; i++)
+            {
+                // Create a new choice button from the prefab
+                GameObject choiceButtonObject = Instantiate(choiceButtonPrefab, choiceButtonContainer);
+                Button choiceButton = choiceButtonObject.GetComponent<Button>();
+                TextMeshProUGUI choiceText = choiceButton.GetComponentInChildren<TextMeshProUGUI>();
+                choiceText.text = currentDialogue.options[i].optionText;
+
+                int optionIndex = i;
+                choiceButton.onClick.AddListener(() => OnOptionSelected(optionIndex));
+            }
+        }
+        //else
+        //{
+        //    // No options, proceed automatically
+        //    StartCoroutine(AutoProceed());
+        //}
+    }
+
+    private void OnOptionSelected(int optionIndex)
+    {
+        if (optionIndex >= 0 && optionIndex < currentDialogue.options.Count)
+        {
+            Dialogue[] nextDialogues = currentDialogue.options[optionIndex].nextDialogues;
+            dialogueQueue.Clear(); // Clear the queue
+            foreach (Dialogue dialogue in nextDialogues)
+            {
+                dialogueQueue.Enqueue(dialogue);
+            }
+            DisplayNextDialogue();
         }
     }
 
-    private void EndDialogueInteraction()
+    //private IEnumerator AutoProceed()
+    //{
+    //    yield return new WaitForSeconds(1000f);
+    //    DisplayNextDialogue();
+    //}
+
+    public void EndDialogue()
     {
-        Debug.Log("End of the interaction");
+        dialogueBox.SetActive(false);
+        HideOptions();
+    }
+
+    private void HideOptions()
+    {
+        foreach (Button button in optionButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+        foreach (Transform child in choiceButtonContainer)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void OnDestroy()
     {
-        _dialogueManger = null;
+        _dialogueManager = null;
     }
 }
