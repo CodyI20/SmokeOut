@@ -1609,7 +1609,7 @@ MonoBehaviour:
   timeTillIntensityIncreases: 10
   vignetteIntensityChange: 0.1
   _audioPlayed: {fileID: 832575521}
-  soundIntensityChange: 0.15
+  soundIntensityChange: 0.08
 --- !u!82 &832575521
 AudioSource:
   m_ObjectHideFlags: 0
