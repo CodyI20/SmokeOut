@@ -48,6 +48,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueQueue.Count == 0)
         {
             dialogueEnded = true;
+            TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
             EndDialogue();
             return;
         }
@@ -102,7 +103,6 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         dialogueBox.SetActive(false);
-        TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
         HideOptions();
     }
 

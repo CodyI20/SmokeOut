@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef0d4e18ea343044a66378514a34605, type: 3}
   m_Name: TV
   m_EditorClassIdentifier: 
-  taskName: Turn on the TV
+  taskName: TV
+  taskDescription: Turn on the TV
   isComplete: 0

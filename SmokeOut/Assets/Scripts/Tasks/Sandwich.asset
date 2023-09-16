@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef0d4e18ea343044a66378514a34605, type: 3}
   m_Name: Sandwich
   m_EditorClassIdentifier: 
-  taskName: Make a sandwich
+  taskName: Sandwich
+  taskDescription: Make a sandwich
+  isComplete: 0

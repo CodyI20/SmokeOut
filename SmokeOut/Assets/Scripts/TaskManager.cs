@@ -8,6 +8,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> predefinedTasks;
     private HashSet<GameObject> taskItems = new HashSet<GameObject>();
+    private GameObject taskItemToBeRemoved = null;
 
     public static TaskManager _taskManager { get; private set; }
 
@@ -58,8 +59,14 @@ public class TaskManager : MonoBehaviour
             if(task.GetComponent<TaskIdentifier>().identifier == taskName)
             {
                 SetTextStrikethrough(task.GetComponentInChildren<TextMeshProUGUI>());
+                taskItemToBeRemoved = task;
                 break;
             }
+        }
+        if(taskItemToBeRemoved != null)
+        {
+            taskItems.Remove(taskItemToBeRemoved);
+            taskItemToBeRemoved = null;
         }
     }
 

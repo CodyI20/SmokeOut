@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef0d4e18ea343044a66378514a34605, type: 3}
   m_Name: Gum
   m_EditorClassIdentifier: 
-  taskName: Chew Gum
+  taskName: Gum
+  taskDescription: Chew gum
+  isComplete: 0

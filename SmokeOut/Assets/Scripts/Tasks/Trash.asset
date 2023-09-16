@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef0d4e18ea343044a66378514a34605, type: 3}
   m_Name: Trash
   m_EditorClassIdentifier: 
-  taskName: Pick up trash
+  taskName: Trash
+  taskDescription: Pick up trash
   isComplete: 0
