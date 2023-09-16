@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS0642: Possible mistaken empty statement
+dotnet_diagnostic.CS0642.severity = none
+
+# IDE0011: Add braces
+dotnet_diagnostic.IDE0011.severity = suggestion

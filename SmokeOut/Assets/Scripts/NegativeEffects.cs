@@ -5,14 +5,23 @@ using UnityEngine.Rendering.Universal;
 
 public class NegativeEffects : MonoBehaviour
 {
-    private Vignette vignette;
+    //GENERAL
     [Min(10f)]
-    [SerializeField] private float timeTillIntensityIncreases = 5f;
+    [SerializeField] private float timeTillIntensityIncreases = 10f;
+
+    //VIGNETTE
+    private Vignette vignette;
     [Range(0.05f, 0.2f)]
-    [SerializeField] private float amountOfIntesityChange = 0.1f;
+    [SerializeField] private float vignetteIntensityChange = 0.1f;
+
+    //SOUNDS
+    [SerializeField] private AudioSource _audioPlayed;
+    [Range(0.1f, 1f)]
+    [SerializeField] private float soundIntensityChange = 0.5f;
 
     private void Awake()
     {
+        _audioPlayed = GetComponent<AudioSource>();
         VolumeProfile volumeProfile = GetComponent<Volume>()?.profile;
         if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
     }
@@ -33,7 +42,10 @@ public class NegativeEffects : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeTillIntensityIncreases);
-            vignette.intensity.Override((float)vignette.intensity + amountOfIntesityChange);
+            if (vignette != null)
+                vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
+            if (_audioPlayed != null)
+                _audioPlayed.volume += soundIntensityChange;
         }
     }
 
@@ -42,6 +54,7 @@ public class NegativeEffects : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             vignette.intensity.Override(0);
+            _audioPlayed.volume = 0;
         }
     }
 }
