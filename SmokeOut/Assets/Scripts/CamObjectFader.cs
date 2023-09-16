@@ -6,11 +6,13 @@ public class CamObjectFader : MonoBehaviour
     private HashSet<GameObject> obstructingObjects = new HashSet<GameObject>();
     private HashSet<MeshRenderer> meshRenderersToEnable = new HashSet<MeshRenderer>();
     GameObject m_Player;
+    MeshRenderer m_PlayerRenderer;
 
     void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player");
         if (m_Player == null) return;
+        m_PlayerRenderer = m_Player.GetComponent<MeshRenderer>();
     }
 
     void Update()
@@ -24,7 +26,7 @@ public class CamObjectFader : MonoBehaviour
     {
         if (m_Player == null) return;
 
-        Vector3 playerPosition = m_Player.transform.position;
+        Vector3 playerPosition = m_Player.transform.position+new Vector3(0,-m_PlayerRenderer.bounds.size.y,0);
         Vector3 cameraPosition = transform.position;
         Vector3 directionToPlayer = playerPosition - cameraPosition;
 

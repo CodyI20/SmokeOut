@@ -7,11 +7,11 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager _dialogueManager {  get; private set; }
-    public bool dialogueEnded = false;
+    public DialogueTrigger _dialogueInProgress;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private Button[] optionButtons; // Add buttons for options
+    [HideInInspector][SerializeField] private Button[] optionButtons; // Add buttons for options
 
     private Queue<Dialogue> dialogueQueue;
     private Dialogue currentDialogue; // Track the current dialogue
@@ -47,8 +47,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueQueue.Count == 0)
         {
-            dialogueEnded = true;
             TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
+            Destroy(_dialogueInProgress);
             EndDialogue();
             return;
         }
@@ -103,6 +103,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         dialogueBox.SetActive(false);
+        _dialogueInProgress = null;
         HideOptions();
     }
 

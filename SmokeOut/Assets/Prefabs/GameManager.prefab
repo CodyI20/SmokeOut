@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7435536537261007430}
   - component: {fileID: 4819625048549921210}
   - component: {fileID: 6901734588315207641}
-  - component: {fileID: 8588703693017487792}
   - component: {fileID: 512967243471661805}
   m_Layer: 0
   m_Name: GameManager
@@ -49,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuUI: {fileID: 0}
   _optionsUI: {fileID: 0}
-  _dialogueUI: {fileID: 0}
 --- !u!114 &6901734588315207641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,18 +69,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a2733428af5d8f4dad628a8014ce5d6, type: 2}
   - {fileID: 11400000, guid: 8467ff0e8d14a034886326b2615689c0, type: 2}
   - {fileID: 11400000, guid: 9c5205a2f11e08a4f98c3d8d710fc9bb, type: 2}
---- !u!114 &8588703693017487792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804844384046265311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22136afaa90df104183c032b55939aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &512967243471661805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1779dfeeb7067934b8df40aaf56a9ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueEnded: 0
+  _dialogueInProgress: {fileID: 0}
   nameText: {fileID: 0}
   dialogueText: {fileID: 0}
   dialogueBox: {fileID: 0}

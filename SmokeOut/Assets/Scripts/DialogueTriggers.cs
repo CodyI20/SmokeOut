@@ -24,7 +24,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!canTriggerDialogue && !dialogueManager.dialogueEnded && other.CompareTag("Player"))
+        if (!canTriggerDialogue && other.CompareTag("Player"))
         {
             EndDialogueOutOfRange();
         }
@@ -33,6 +33,7 @@ public class DialogueTrigger : MonoBehaviour
     private void StartDialogue()
     {
         dialogueManager.StartDialogue(dialogues);
+        dialogueManager._dialogueInProgress = this;
         canTriggerDialogue = false;
     }
 
