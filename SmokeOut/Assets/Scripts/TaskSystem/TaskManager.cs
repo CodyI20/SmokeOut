@@ -6,10 +6,16 @@ public class TasksManager : MonoBehaviour
 {
     private Dictionary<string, Task> taskMap;
 
+<<<<<<< Updated upstream
+=======
+    // tasks tart requirements
+
+>>>>>>> Stashed changes
     private void Awake()
     {
         taskMap = CreateTaskMap();
 
+<<<<<<< Updated upstream
         Task task = GetTaskById("CleanTheRoomTask");
         Debug.Log(task.info.displayName);
         Debug.Log(task.info.levelRequirement);
@@ -19,6 +25,54 @@ public class TasksManager : MonoBehaviour
 
     }
 
+=======
+        Task task = GetTaskById("CleanTheRoom");
+
+    }
+
+    private void onEnable()
+    {
+        GameEventsManager.instance.taskEvents.onStartTask += StartTask;
+        GameEventsManager.instance.taskEvents.onAdvanceTask += AdvanceTask;
+        GameEventsManager.instance.taskEvents.onFinishTask += FinishTask; 
+    }
+
+    private void onDisable()
+    {
+        GameEventsManager.instance.taskEvents.onStartTask -= StartTask;
+        GameEventsManager.instance.taskEvents.onAdvanceTask -= AdvanceTask;
+        GameEventsManager.instance.taskEvents.onFinishTask -= FinishTask;
+    }
+
+    private void Start()
+    {
+        // broadcasting the intial state of all task on startup
+        foreach (Task task in taskMap.Values)
+        {
+            GameEventsManager.instance.taskEvents.TaskStateChange(task);
+        }
+    }
+
+    private void StartTask(string id)
+    {
+        //todo - start the task
+        Debug.Log("Start Task" + id);
+    }
+
+    private void AdvanceTask(string id)
+    {
+        // todo - advance the task
+        Debug.Log("Advance Task:" + id);
+    }
+
+    private void FinishTask(string id)
+    {
+        // todo - finish the task
+        Debug.Log("Finish Task:" + id);
+    }
+
+
+>>>>>>> Stashed changes
     private Dictionary<string,Task> CreateTaskMap()
     {
         //Load all QuestInfoSO Scriptable Objects under the Assets/Resources/Tasks folder

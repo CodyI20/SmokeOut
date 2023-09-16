@@ -18,5 +18,12 @@ MonoBehaviour:
   taskPrerequisites: []
   taskStepPrefabs:
   - {fileID: 8725192651519940135, guid: aec2a03d2b1d6464e8c6e107b3afdec0, type: 3}
+<<<<<<< Updated upstream
+=======
+  - {fileID: 8725192651519940135, guid: 7cae1da276524f242a89dc248d0ce9db, type: 3}
+  - {fileID: 8725192651519940135, guid: 10f6259156a31a14ba58bf49d9236dbd, type: 3}
+  - {fileID: 8725192651519940135, guid: 0286bb8bf09c6e14485a5b8be836ae28, type: 3}
+  - {fileID: 8725192651519940135, guid: 5d5712794300acb4da51a71c797e2435, type: 3}
+>>>>>>> Stashed changes
   goldReward: 0
   experienceReward: 250
