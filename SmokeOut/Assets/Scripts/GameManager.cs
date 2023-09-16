@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,11 +8,13 @@ public class GameManager : MonoBehaviour
     private DialogueManager _dialogueManager;
     [SerializeField] private GameObject _menuUI;
     [SerializeField] private GameObject _optionsUI;
+    private bool dialogueWasOpen = false;
 
 
     /// <summary>
     /// These variables are static so that they persist through scene changes. This is due to the fact that the GameManager is unique
     /// </summary>
+    private static GameObject _dialogueUI;
     private static GameObject _overlayUI;
     public static GameState _gameState;
     ///
@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
         if (_overlayUI)
         {
             _overlayUI.SetActive(false);
+        }
+        _dialogueUI = GameObject.FindGameObjectWithTag("DialogueUI");
+        if (_dialogueUI)
+        {
+            _dialogueUI.SetActive(false);
         }
     }
 
@@ -110,19 +115,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PauseGameWhenDialoguePlays()
-    {
-            
-    }
-
     void PauseGame()
     {
+        if (_dialogueUI != null && _dialogueUI.activeSelf)
+        {
+            _dialogueUI.SetActive(false);
+            dialogueWasOpen = true;
+        }
         _gameState = GameState.Paused;
         AudioListener.pause = true;
         Time.timeScale = 0;
     }
     void ResumeGame()
     {
+        if(_dialogueUI != null && dialogueWasOpen)
+        {
+            _dialogueUI.SetActive(true);
+            dialogueWasOpen = false;
+        }
         _gameState = GameState.Resumed;
         AudioListener.pause = false;
         Time.timeScale = 1;
