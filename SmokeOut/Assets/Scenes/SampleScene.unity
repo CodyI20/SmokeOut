@@ -6988,6 +6988,8 @@ MonoBehaviour:
       - speakerName: TV
         dialogueText: I AM MAAAAAD!
         options: []
+  _outline: {fileID: 0}
+  _outlineHover: {fileID: 0}
 --- !u!65 &7621071004769599165
 BoxCollider:
   m_ObjectHideFlags: 0

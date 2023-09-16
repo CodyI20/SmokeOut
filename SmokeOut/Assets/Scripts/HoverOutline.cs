@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class HoverOutline : MonoBehaviour
 {
-    private Outline outlineComponent;
+    private QuickOutline outlineComponent;
 
     [Header("Outline Settings")]
-    [SerializeField] private Color outlineColor = Color.green; // Set your desired outline color here
-    [SerializeField] private float outlineWidth = 3f; // Set your desired outline width here
+    [SerializeField] private Color outlineColor = Color.blue; // Set your desired outline color here
+    [SerializeField] private float outlineWidth = 2f; // Set your desired outline width here
 
-    private void Start()
+    private void Awake()
     {
         // Find the Outline component on this GameObject
-        outlineComponent = GetComponent<Outline>();
+        outlineComponent = GetComponent<QuickOutline>();
         if (outlineComponent == null)
         {
             // If the Outline component is not found, add one
-            outlineComponent = gameObject.AddComponent<Outline>();
+            outlineComponent = gameObject.AddComponent<QuickOutline>();
         }
 
         // Set the outline color and width
@@ -27,15 +27,30 @@ public class HoverOutline : MonoBehaviour
         outlineComponent.enabled = false;
     }
 
-    private void OnMouseEnter()
-    {
-        // Enable the outline when the mouse enters the object
-        outlineComponent.enabled = true;
-    }
+    //private void OnMouseEnter()
+    //{
+    //    // Enable the outline when the mouse enters the object
+    //    outlineComponent.enabled = true;
+    //}
 
-    private void OnMouseExit()
+    //private void OnMouseExit()
+    //{
+    //    // Disable the outline when the mouse exits the object
+    //    outlineComponent.enabled = false;
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Disable the outline when the mouse exits the object
-        outlineComponent.enabled = false;
+        if (other.CompareTag("Player"))
+        {
+            outlineComponent.enabled = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            outlineComponent.enabled = false;
+        }
     }
 }

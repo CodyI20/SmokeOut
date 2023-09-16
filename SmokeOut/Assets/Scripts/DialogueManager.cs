@@ -49,6 +49,10 @@ public class DialogueManager : MonoBehaviour
         {
             TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
             Destroy(_dialogueInProgress);
+            if(_dialogueInProgress._outline != null)
+                Destroy(_dialogueInProgress._outline);
+            if(_dialogueInProgress._outlineHover != null)
+                Destroy(_dialogueInProgress._outlineHover);
             EndDialogue();
             return;
         }
