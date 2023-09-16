@@ -40,7 +40,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!canTriggerDialogue && other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             EndDialogueOutOfRange();
         }

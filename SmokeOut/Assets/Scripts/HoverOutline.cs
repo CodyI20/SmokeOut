@@ -9,6 +9,9 @@ public class HoverOutline : MonoBehaviour
     [SerializeField] private Color outlineColor = Color.blue; // Set your desired outline color here
     [SerializeField] private float outlineWidth = 2f; // Set your desired outline width here
 
+    [Header("Select the interaction type!")]
+    [SerializeField] private InteractionType interactionType = InteractionType.Mouse;
+
     private void Awake()
     {
         // Find the Outline component on this GameObject
@@ -27,28 +30,33 @@ public class HoverOutline : MonoBehaviour
         outlineComponent.enabled = false;
     }
 
-    //private void OnMouseEnter()
-    //{
-    //    // Enable the outline when the mouse enters the object
-    //    outlineComponent.enabled = true;
-    //}
-
-    //private void OnMouseExit()
-    //{
-    //    // Disable the outline when the mouse exits the object
-    //    outlineComponent.enabled = false;
-    //}
-
-    private void OnTriggerEnter(Collider other)
+    private void OnMouseEnter()
     {
-        if (other.CompareTag("Player"))
+        if(interactionType == InteractionType.Mouse)
         {
             outlineComponent.enabled = true;
         }
     }
+
+    private void OnMouseExit()
+    {
+        if(interactionType == InteractionType.Mouse)
+        {
+            outlineComponent.enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (interactionType == InteractionType.Trigger && other.CompareTag("Player"))
+        {
+            outlineComponent.enabled = true;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (interactionType == InteractionType.Trigger && other.CompareTag("Player"))
         {
             outlineComponent.enabled = false;
         }
