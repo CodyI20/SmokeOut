@@ -3,13 +3,9 @@ using UnityEngine;
 
 public class CamObjectFader : MonoBehaviour
 {
-    List<MeshRenderer> _renderers;
+    private HashSet<GameObject> obstructingObjects = new HashSet<GameObject>();
+    private HashSet<MeshRenderer> meshRenderersToEnable = new HashSet<MeshRenderer>();
     GameObject m_Player;
-
-    private void Awake()
-    {
-        _renderers = new List<MeshRenderer>();
-    }
 
     void Start()
     {
@@ -22,6 +18,8 @@ public class CamObjectFader : MonoBehaviour
         CheckIfDoFade();
     }
 
+
+
     void CheckIfDoFade()
     {
         if (m_Player == null) return;
@@ -30,26 +28,35 @@ public class CamObjectFader : MonoBehaviour
         Vector3 cameraPosition = transform.position;
         Vector3 directionToPlayer = playerPosition - cameraPosition;
 
-        // Layer mask to exclude objects you don't want to consider as obstructions
-        int layerMask = LayerMask.GetMask("WallLayer"); // Replace "ObstacleLayer" with your actual layer name.
+        int layerMask = LayerMask.GetMask("WallLayer");
 
-        // Check if anything is obstructing the view between the camera and the player.
-        RaycastHit[] hits = Physics.RaycastAll(cameraPosition, directionToPlayer, directionToPlayer.magnitude, layerMask);
+        // Cast a single ray to check for obstructions.
+        RaycastHit hit;
+        bool playerObstructed = Physics.Raycast(cameraPosition, directionToPlayer, out hit, directionToPlayer.magnitude, layerMask);
 
-        bool playerObstructed = false;
+        // Handle the obstructing object.
+        GameObject hitObject = hit.collider ? hit.collider.gameObject : null;
 
-        foreach (RaycastHit hit in hits)
+        if (hitObject != null)
         {
-            if (hit.collider != null && hit.collider.gameObject != m_Player)
+            if (!obstructingObjects.Contains(hitObject))
             {
-                // An object is obstructing the view.
-                playerObstructed = true;
-                DisableMeshRenderer(hit.collider.gameObject);
-                _renderers.Add(hit.collider.gameObject.GetComponent<MeshRenderer>());
-                break;
+                DisableMeshRenderer(hitObject);
+                obstructingObjects.Add(hitObject);
             }
         }
 
+        // Check for objects that were obstructing but no longer do.
+        HashSet<GameObject> objectsToRemove = new HashSet<GameObject>(obstructingObjects);
+        objectsToRemove.ExceptWith(new[] { hitObject });
+
+        foreach (GameObject objToRemove in objectsToRemove)
+        {
+            EnableMeshRenderer(objToRemove);
+            obstructingObjects.Remove(objToRemove);
+        }
+
+        // Enable all mesh renderers if the player is not obstructed.
         if (!playerObstructed)
         {
             EnableAllMeshRenderers();
@@ -63,18 +70,30 @@ public class CamObjectFader : MonoBehaviour
         if (meshRenderer != null)
         {
             meshRenderer.enabled = false;
+            meshRenderersToEnable.Add(meshRenderer);
+        }
+    }
+
+    void EnableMeshRenderer(GameObject obj)
+    {
+        MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+
+        if (meshRenderer != null)
+        {
+            meshRenderer.enabled = true;
+            meshRenderersToEnable.Remove(meshRenderer);
         }
     }
 
     void EnableAllMeshRenderers()
     {
-        foreach (MeshRenderer renderer in _renderers)
+        foreach (MeshRenderer renderer in meshRenderersToEnable)
         {
             if (renderer != null)
             {
                 renderer.enabled = true;
             }
         }
-        _renderers.Clear();
+        meshRenderersToEnable.Clear();
     }
 }
