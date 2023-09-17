@@ -1,13 +1,17 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class NegativeEffects : MonoBehaviour
 {
+    public static NegativeEffects _negativeEffect { get; private set; }
+    public bool isIncreasing = true;
     //GENERAL
-    [Min(10f)]
+    [Min(5f)]
     [SerializeField] private float timeTillIntensityIncreases = 10f;
+    [SerializeField] private float timeTillIntensityDecreases = 5f;
 
     //VIGNETTE
     private Vignette vignette;
@@ -21,6 +25,8 @@ public class NegativeEffects : MonoBehaviour
 
     private void Awake()
     {
+        if (_negativeEffect == null)
+            _negativeEffect = this;
         _audioPlayed = GetComponent<AudioSource>();
         VolumeProfile volumeProfile = GetComponent<Volume>()?.profile;
         if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
@@ -29,32 +35,44 @@ public class NegativeEffects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(IncreaseIntensityOverTime());
+        StartCoroutine(ChangeIntensityOvertime());
     }
 
-    private void Update()
-    {
-        ClearEffects();
-    }
-
-    IEnumerator IncreaseIntensityOverTime()
+    IEnumerator ChangeIntensityOvertime()
     {
         while (true)
         {
             yield return new WaitForSeconds(timeTillIntensityIncreases);
-            if (vignette != null)
-                vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
-            if (_audioPlayed != null)
-                _audioPlayed.volume += soundIntensityChange;
+            if (isIncreasing)
+            {
+                if (vignette != null)
+                    vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
+                if (_audioPlayed != null)
+                    _audioPlayed.volume += soundIntensityChange;
+            }
+            else
+            {
+                if (vignette != null && vignette.intensity!=vignette.intensity.min)
+                    vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange);
+                if (_audioPlayed != null && _audioPlayed.volume > 0)
+                    _audioPlayed.volume -= soundIntensityChange;
+
+                if(vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
+                {
+                    isIncreasing = true;
+                }
+            }
         }
     }
 
-    void ClearEffects()
+    public void ClearEffects()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            vignette.intensity.Override(0);
-            _audioPlayed.volume = 0;
-        }
+        vignette.intensity.Override(0);
+        _audioPlayed.volume = 0;
+    }
+
+    private void OnDestroy()
+    {
+        _negativeEffect = null;
     }
 }

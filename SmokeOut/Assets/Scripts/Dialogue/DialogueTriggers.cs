@@ -11,6 +11,9 @@ public class DialogueTrigger : MonoBehaviour
     [HideInInspector] public QuickOutline _outline;
     [HideInInspector] public HoverOutline _outlineHover;
 
+    [Header("Only if on PLAYER")]
+    [Tooltip("Time in seconds until the next choice")][SerializeField] private float timeTillChoice = 20f;
+
     private void Awake()
     {
         _outlineHover = GetComponent<HoverOutline>();
@@ -22,7 +25,7 @@ public class DialogueTrigger : MonoBehaviour
         dialogueManager = DialogueManager._dialogueManager;
     }
 
-    private void OnTriggerEnter(Collider other) // Search for a way to make it possible for the dialogue to start only when the mouse is hovering over the object and mouse0 is clicked
+    private void OnTriggerEnter(Collider other)
     {
         if (canTriggerDialogue && other.CompareTag("Player"))
         {
@@ -32,6 +35,10 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (gameObject.CompareTag("Player") && !dialogueManager.specialDialogueInProgress && Input.GetKeyDown(KeyCode.M))
+        {
+            StartSpecialDialogue();
+        }
         if (inRangeToTrigger && Input.GetKeyDown(KeyCode.T))
         {
             StartDialogue();
@@ -44,6 +51,11 @@ public class DialogueTrigger : MonoBehaviour
         {
             EndDialogueOutOfRange();
         }
+    }
+
+    private void StartSpecialDialogue()
+    {
+        dialogueManager.StartSpecialDialogue(dialogues);
     }
 
     private void StartDialogue()

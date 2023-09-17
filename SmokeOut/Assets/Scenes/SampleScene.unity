@@ -441,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 4617095495439186163, guid: fe2c29fc993e8614d98d3714dd217e92,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8181346373403575204, guid: fe2c29fc993e8614d98d3714dd217e92,
         type: 3}
@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 696823773}
   - component: {fileID: 696823772}
   - component: {fileID: 696823777}
+  - component: {fileID: 696823778}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -949,6 +950,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &696823778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696823771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c823f4c51200ab49aac64f5a3fc0a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speakerName: 
+    dialogueText: Whoops
+    options: []
+    specialChoices:
+    - optionText: Smoke
+      nextDialogues: []
+      goodOption: 0
+    - optionText: Don't smoke
+      nextDialogues: []
+      goodOption: 1
+  _outline: {fileID: 0}
+  _outlineHover: {fileID: 0}
+  timeTillChoice: 20
 --- !u!1 &756252250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,10 +1242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a69381035884c44aa44516a934c3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTillIntensityIncreases: 10
-  vignetteIntensityChange: 0.1
+  timeTillIntensityIncreases: 5
+  vignetteIntensityChange: 0.15
   _audioPlayed: {fileID: 832575521}
-  soundIntensityChange: 0.08
+  soundIntensityChange: 0.1
 --- !u!82 &832575521
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1504,6 +1531,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c2edd23588da44e9dec4d979e03049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1433281463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3407800043350928915, guid: 16b45cef7c6bf394d859da6ff899a648,
+    type: 3}
+  m_PrefabInstance: {fileID: 5258045908393970334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1511069091 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1111759810578461690, guid: 16b45cef7c6bf394d859da6ff899a648,
@@ -3985,9 +4018,25 @@ PrefabInstance:
       objectReference: {fileID: 37162358}
     - target: {fileID: 512967243471661805, guid: 70553fe91d5e3b24791e0ed833343495,
         type: 3}
+      propertyPath: specialDialogueBox
+      value: 
+      objectReference: {fileID: 1433281463}
+    - target: {fileID: 512967243471661805, guid: 70553fe91d5e3b24791e0ed833343495,
+        type: 3}
+      propertyPath: specialButtonPrefab
+      value: 
+      objectReference: {fileID: 4015988903936209419, guid: cb20cbb65adfab8449851897067f4072,
+        type: 3}
+    - target: {fileID: 512967243471661805, guid: 70553fe91d5e3b24791e0ed833343495,
+        type: 3}
       propertyPath: choiceButtonContainer
       value: 
       objectReference: {fileID: 943289916}
+    - target: {fileID: 512967243471661805, guid: 70553fe91d5e3b24791e0ed833343495,
+        type: 3}
+      propertyPath: specialButtonContainer
+      value: 
+      objectReference: {fileID: 5258045908393970335}
     - target: {fileID: 6804844384046265311, guid: 70553fe91d5e3b24791e0ed833343495,
         type: 3}
       propertyPath: m_Name
@@ -4768,16 +4817,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1111759810578461690, guid: 16b45cef7c6bf394d859da6ff899a648,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111759810578461690, guid: 16b45cef7c6bf394d859da6ff899a648,
-        type: 3}
-      propertyPath: m_TagString
-      value: DialogueUI
-      objectReference: {fileID: 0}
     - target: {fileID: 7716526264707083270, guid: 16b45cef7c6bf394d859da6ff899a648,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4883,6 +4922,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16b45cef7c6bf394d859da6ff899a648, type: 3}
+--- !u!224 &5258045908393970335 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7678614440916217991, guid: 16b45cef7c6bf394d859da6ff899a648,
+    type: 3}
+  m_PrefabInstance: {fileID: 5258045908393970334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5273790332070770823
 Transform:
   m_ObjectHideFlags: 0
@@ -6513,13 +6558,18 @@ MonoBehaviour:
     options:
     - optionText: Turn on
       nextDialogues: []
+      goodOption: 0
     - optionText: Not turn on
       nextDialogues:
       - speakerName: TV
         dialogueText: I AM MAAAAAD!
         options: []
+        specialChoices: []
+      goodOption: 0
+    specialChoices: []
   _outline: {fileID: 0}
   _outlineHover: {fileID: 0}
+  timeTillChoice: 20
 --- !u!65 &7621071004769599165
 BoxCollider:
   m_ObjectHideFlags: 0
