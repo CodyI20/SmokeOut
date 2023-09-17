@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 public class NegativeEffects : MonoBehaviour
 {
     public static NegativeEffects _negativeEffect { get; private set; }
+    [HideInInspector]
     public bool isIncreasing = true;
     //GENERAL
     [Min(5f)]

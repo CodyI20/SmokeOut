@@ -441,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 4617095495439186163, guid: fe2c29fc993e8614d98d3714dd217e92,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8181346373403575204, guid: fe2c29fc993e8614d98d3714dd217e92,
         type: 3}
@@ -1242,7 +1242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a69381035884c44aa44516a934c3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isIncreasing: 1
   timeTillIntensityIncreases: 5
+  timeTillIntensityDecreases: 5
   vignetteIntensityChange: 0.15
   _audioPlayed: {fileID: 832575521}
   soundIntensityChange: 0.1
