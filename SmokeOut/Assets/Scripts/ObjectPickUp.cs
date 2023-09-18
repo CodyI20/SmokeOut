@@ -7,7 +7,6 @@ public class ObjectPickUp : MonoBehaviour
     private bool isInRange = false; // To track if the player is in range of the item.
     private bool isHovering = false; // To track if the mouse cursor is hovering over the item.
 
-    public bool pickUpItem = false;
 
     private void Update()
     {
@@ -39,7 +38,7 @@ public class ObjectPickUp : MonoBehaviour
         gameObject.SetActive(false); // Disables the item.
         Destroy(gameObject, 2f);
         Debug.Log("You picked up a trash");
-        pickUpItem = true;
+        GameEventsManager.instance.inputEvents.PickUp();
     }
 
     private void OnDrawGizmosSelected()

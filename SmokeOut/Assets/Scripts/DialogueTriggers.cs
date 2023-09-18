@@ -34,7 +34,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (inRangeToTrigger && Input.GetKeyDown(KeyCode.T))
         {
+            //Debug.Log("You oppned the dialouge");
             StartDialogue();
+            GameEventsManager.instance.inputEvents.SubmitClicked();
         }
     }
 

@@ -5,14 +5,22 @@ using UnityEngine.UI;
 
 public class CleanTheRoomTaskStep : TaskStep
 {
-    public ObjectPickUp pickUp;
-
     private int trashCollected = 0;
-    private int trashToComplete = 1;
+    private int trashToComplete = 5;
 
-    void Update()
+    private void OnEnable()
     {
-        if ((trashCollected < trashToComplete) && (pickUp.pickUpItem))
+        GameEventsManager.instance.inputEvents.onPickUp += TrashCollected;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.instance.inputEvents.onPickUp -= TrashCollected;
+    }
+
+    private void TrashCollected()
+    {
+        if ((trashCollected < trashToComplete))
         {
             trashCollected++;
         }

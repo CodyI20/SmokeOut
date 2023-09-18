@@ -9,6 +9,10 @@ public class TaskPoint : MonoBehaviour
     [Header("Task")]
     [SerializeField] private TaskInfoSO taskInfoForPoint;
 
+    [SerializeField] private bool startPoint = true;
+    [SerializeField] private bool finishPoint = false;
+
+
 
     private bool playerIsNear = false;
     private string taskId;
@@ -21,36 +25,38 @@ public class TaskPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.taskEvents.onTaskStateChange += TaskStateChange;
+        GameEventsManager.instance.inputEvents.onSubmitClicked += SubmitClicked;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.taskEvents.onTaskStateChange -= TaskStateChange;
+        GameEventsManager.instance.inputEvents.onSubmitClicked -= SubmitClicked;
     }
-    
-    void Update()
+
+    private void SubmitClicked()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (!playerIsNear)
         {
-            if (!playerIsNear)
-            {
-                return;
-            }
-            Debug.Log("You pressed the interact button");
+            return;
+        }
+
+        if (startPoint)
+        {
+            Debug.Log("Starting task:" + taskId);
             GameEventsManager.instance.taskEvents.StartTask(taskId);
-            GameEventsManager.instance.taskEvents.AdvanceTask(taskId);
+        }
+        else if (finishPoint)
+        {
             GameEventsManager.instance.taskEvents.FinishTask(taskId);
         }
     }
-
-
-        
+         
     private void TaskStateChange(Task task)
     {
         if (task.info.id.Equals(taskId))
         {
             currentTaskState = task.state;
-            Debug.Log("Quest with id:" + taskId + "updated to state" + currentTaskState);
         }
     }
 
@@ -59,7 +65,7 @@ public class TaskPoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsNear = true;
-            Debug.Log("The player is in the zone!");
+            ///Debug.Log("The player is in the zone!");
         }
     }
 

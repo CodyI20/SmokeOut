@@ -6,26 +6,21 @@ public class TasksManager : MonoBehaviour
 {
     private Dictionary<string, Task> taskMap;
 
+    private int currentPlayerLevel = 1;
+
     private void Awake()
     {
         taskMap = CreateTaskMap();
-
-        Task task = GetTaskById("CleanTheRoom");
-        Debug.Log(task.info.displayName);
-        Debug.Log(task.info.levelRequirement);
-        Debug.Log(task.state);
-        Debug.Log(task.CurrentStepExists());
-
-
     }
-    private void onEnable()
+     private void OnEnable()
     {
+        Debug.Log("Checking if onEnable is activated before initialisation code");
         GameEventsManager.instance.taskEvents.onStartTask += StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask += AdvanceTask;
         GameEventsManager.instance.taskEvents.onFinishTask += FinishTask; 
     }
 
-    private void onDisable()
+     private void OnDisable()
     {
         GameEventsManager.instance.taskEvents.onStartTask -= StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask -= AdvanceTask;
@@ -40,22 +35,68 @@ public class TasksManager : MonoBehaviour
         }
     }
 
+    private void ChangeTaskState(string id, TaskState state)
+    {
+        Task task = GetTaskById(id);
+        task.state = state;
+        GameEventsManager.instance.taskEvents.TaskStateChange(task);
+    }
+
+    private bool CheckRequirementsMet(Task task)
+    {
+        // start true and prove to be false
+        bool meetsRequirements = true;
+
+        // check player level requirements
+        if (currentPlayerLevel < task.info.levelRequirement)
+        {
+            meetsRequirements = false;
+        }
+
+        // check task prerequisites for completion
+        foreach (TaskInfoSO prerequisiteTaskInfo in task.info.taskPrerequisites)
+        {
+            if (GetTaskById(prerequisiteTaskInfo.id).state != TaskState.FINISHED)
+            {
+                meetsRequirements = false;
+            }
+        }
+
+        return meetsRequirements;
+    }
+
+
     private void StartTask(string id)
     {
-        //todo - start the task
-        Debug.Log("Start Task" + id);
+        Debug.Log("Started the task");
+        Task task = GetTaskById(id);
+        task.InstantiateCurrentTaskStep(this.transform);
+        ChangeTaskState(task.info.id, TaskState.IN_PROGRESS);
     }
 
     private void AdvanceTask(string id)
     {
-        // todo - advance the task
-        Debug.Log("Advance Task:" + id);
+        Task task = GetTaskById(id);
+
+        // move on to the next step
+        task.MoveToNextStep();
+
+        // if there are more steps, instantiate the next one
+        if (task.CurrentStepExists())
+        {
+            task.InstantiateCurrentTaskStep(this.transform);
+        }
+        // if there are no more steps, then we've finished all of them for this task
+        else
+        {
+            ChangeTaskState(task.info.id, TaskState.CAN_FINISH);
+        }
     }
 
     private void FinishTask(string id)
     {
-        // todo - finish the task
-        Debug.Log("Finish Task:" + id);
+        Task task = GetTaskById(id);
+        ChangeTaskState(task.info.id, TaskState.FINISHED);
     }
 
 

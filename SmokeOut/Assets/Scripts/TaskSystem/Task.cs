@@ -26,12 +26,13 @@ public class Task
     {
         return (currentTaskStepIndex < info.taskStepPrefabs.Length);
     }
-    public void InstantiateCurrentQuestStep(Transform parentTransform)
+    public void InstantiateCurrentTaskStep(Transform parentTransform)
     {
         GameObject taskStepPrefab = GetCurrentTaskStepPrefab();
         if (taskStepPrefab != null) 
         {
-            Object.Instantiate<GameObject>(taskStepPrefab, parentTransform);
+            TaskStep taskStep = Object.Instantiate<GameObject>(taskStepPrefab, parentTransform)
+                .GetComponent<TaskStep>();
         }
 
     }

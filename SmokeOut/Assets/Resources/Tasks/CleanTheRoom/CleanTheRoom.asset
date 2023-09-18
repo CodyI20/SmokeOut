@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: CleanTheRoom
   m_EditorClassIdentifier: 
   <id>k__BackingField: CleanTheRoom
-  displayName: 
+  displayName: CleanTheRoom
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:
   - {fileID: 6487642217657860692, guid: aa48ae4de63b2874ca5eaa520af18dcc, type: 3}
-  - {fileID: 6487642217657860692, guid: daa1dea26e5515f49a1c69b5fe9d0040, type: 3}
-  - {fileID: 6487642217657860692, guid: 7312bd647dfae0a4280513110bc2f972, type: 3}
-  - {fileID: 6487642217657860692, guid: 4389280149febd547aa0e6096319e26a, type: 3}
-  - {fileID: 6487642217657860692, guid: f437b7594c9fb604782af0707e3add60, type: 3}
   goldReward: 0
   experienceReward: 0

@@ -5,9 +5,8 @@ public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager instance { get; private set; }
 
-
     public TaskEvents taskEvents;
-
+    public InputEvents inputEvents;
 
     private void Awake()
     {
@@ -15,9 +14,12 @@ public class GameEventsManager : MonoBehaviour
         {
             Debug.LogError("Found more than one Game Events Manager in the scene.");
         }
+
         instance = this;
+        Debug.Log("Initialize the gameEventsSystem");
 
         taskEvents = new TaskEvents();
-
+        inputEvents = new InputEvents();
     }
+
 }

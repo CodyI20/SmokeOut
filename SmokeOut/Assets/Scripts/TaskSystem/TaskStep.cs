@@ -6,12 +6,19 @@ public abstract class TaskStep : MonoBehaviour
 {
     private bool isFinished = false;
 
+    private string taskId;
+
+    public void InitializeTaskStep(string taskId)
+    {
+        this.taskId = taskId;
+    }
+
     protected void FinishTaskStep()
     {
         if (!isFinished)
         {
             isFinished = true;
-            /// Todo - advance the task forward now that they have finished this step
+            GameEventsManager.instance.taskEvents.AdvanceTask(taskId);
 
             Destroy(this.gameObject);
         }
