@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -9,6 +10,7 @@ public class NegativeEffects : MonoBehaviour
     public static NegativeEffects _negativeEffect { get; private set; }
     [HideInInspector]
     public bool isIncreasing = true;
+    private bool coRoutineRunning = true;
     //GENERAL
     [Min(5f)]
     [SerializeField] private float timeTillIntensityIncreases = 10f;
@@ -68,10 +70,8 @@ public class NegativeEffects : MonoBehaviour
 
     public void ClearEffects()
     {
-        StopCoroutine(ChangeIntensityOvertime());
         vignette.intensity.Override(0);
         _audioPlayed.volume = 0;
-        StartCoroutine(ChangeIntensityOvertime());
     }
 
     private void OnDestroy()

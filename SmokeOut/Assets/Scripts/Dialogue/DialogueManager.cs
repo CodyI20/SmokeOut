@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+            return;
         if (_dialogueManager == null)
             _dialogueManager = this;
     }
@@ -174,6 +177,8 @@ public class DialogueManager : MonoBehaviour
 
     private void HideOptions()
     {
+        if (optionButtons == null || choiceButtonContainer == null)
+            return;
         foreach (Button button in optionButtons)
         {
             button.gameObject.SetActive(false);

@@ -10,6 +10,8 @@ public class TaskManager : MonoBehaviour
     private HashSet<GameObject> taskItems = new HashSet<GameObject>();
     private GameObject taskItemToBeRemoved = null;
 
+    [SerializeField] private AudioSource _taskDoneAudio;
+
     public static TaskManager _taskManager { get; private set; }
 
     private void Awake()
@@ -87,6 +89,7 @@ public class TaskManager : MonoBehaviour
 
     void SetTextStrikethrough(TextMeshProUGUI textComponent)
     {
+        _taskDoneAudio.Play();
         textComponent.fontStyle |= FontStyles.Strikethrough;
     }
 
