@@ -1,6 +1,3 @@
-using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -10,20 +7,15 @@ public class NegativeEffects : MonoBehaviour
     public static NegativeEffects _negativeEffect { get; private set; }
     [HideInInspector]
     public bool isIncreasing = true;
-    private bool coRoutineRunning = true;
-    //GENERAL
-    [Min(5f)]
-    [SerializeField] private float timeTillIntensityIncreases = 10f;
-    [SerializeField] private float timeTillIntensityDecreases = 5f;
 
     //VIGNETTE
     private Vignette vignette;
-    [Range(0.05f, 0.15f)]
+    [Range(0.0000005f, 0.00001f)]
     [SerializeField] private float vignetteIntensityChange = 0.1f;
 
     //SOUNDS
     [SerializeField] private AudioSource _audioPlayed;
-    [Range(0.05f, 0.1f)]
+    [Range(0.0000005f, 0.00001f)]
     [SerializeField] private float soundIntensityChange = 0.1f;
 
     private void Awake()
@@ -35,35 +27,30 @@ public class NegativeEffects : MonoBehaviour
         if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        StartCoroutine(ChangeIntensityOvertime());
+        ChangeIntensity();
     }
 
-    IEnumerator ChangeIntensityOvertime()
+    void ChangeIntensity()
     {
-        while (true)
+        if (isIncreasing)
         {
-            yield return new WaitForSeconds(timeTillIntensityIncreases);
-            if (isIncreasing)
-            {
-                if (vignette != null)
-                    vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
-                if (_audioPlayed != null)
-                    _audioPlayed.volume += soundIntensityChange;
-            }
-            else
-            {
-                if (vignette != null && vignette.intensity!=vignette.intensity.min)
-                    vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange);
-                if (_audioPlayed != null && _audioPlayed.volume > 0)
-                    _audioPlayed.volume -= soundIntensityChange;
+            if (vignette != null)
+                vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
+            if (_audioPlayed != null)
+                _audioPlayed.volume += soundIntensityChange;
+        }
+        else
+        {
+            if (vignette != null && vignette.intensity != vignette.intensity.min)
+                vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange);
+            if (_audioPlayed != null && _audioPlayed.volume > 0)
+                _audioPlayed.volume -= soundIntensityChange;
 
-                if(vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
-                {
-                    isIncreasing = true;
-                }
+            if (vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
+            {
+                isIncreasing = true;
             }
         }
     }
