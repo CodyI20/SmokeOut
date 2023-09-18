@@ -12,7 +12,7 @@ public class DialogueTrigger : MonoBehaviour
     [HideInInspector] public HoverOutline _outlineHover;
 
     [Header("Only if on PLAYER")]
-    [Tooltip("Time in seconds until the next choice")][SerializeField] private float timeTillChoice = 20f;
+    [Tooltip("Time in seconds until the next choice")][SerializeField] private float timeTillChoice = 0f;
 
     private void Awake()
     {

@@ -34,6 +34,7 @@ public class ObjectPickUp : MonoBehaviour
 
     private void PickUpItem()
     {
+        TrashTask.Instance.IncreaseTrashNumber();
         gameObject.SetActive(false); // Disables the item.
         Destroy(gameObject,2f);
     }

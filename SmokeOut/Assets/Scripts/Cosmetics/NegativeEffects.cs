@@ -68,8 +68,10 @@ public class NegativeEffects : MonoBehaviour
 
     public void ClearEffects()
     {
+        StopCoroutine(ChangeIntensityOvertime());
         vignette.intensity.Override(0);
         _audioPlayed.volume = 0;
+        StartCoroutine(ChangeIntensityOvertime());
     }
 
     private void OnDestroy()

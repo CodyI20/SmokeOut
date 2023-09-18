@@ -38,6 +38,7 @@ public class TaskManager : MonoBehaviour
         TaskIdentifier taskIdentifier = taskItem.GetComponent<TaskIdentifier>();
         taskIdentifier.identifier = taskData.taskName;
         taskItems.Add(taskItem);
+
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
 
         textComponent.text = taskData.taskDescription;
