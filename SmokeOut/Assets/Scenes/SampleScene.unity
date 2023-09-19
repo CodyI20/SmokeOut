@@ -1630,6 +1630,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1017691996940757206, guid: f20c69768d63dfb4c92ad3c2fe21fedf,
+        type: 3}
+      propertyPath: m_SpotAngle
+      value: 137.58612
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017691996940757206, guid: f20c69768d63dfb4c92ad3c2fe21fedf,
+        type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 75.46529
+      objectReference: {fileID: 0}
     - target: {fileID: 4730394424374780369, guid: f20c69768d63dfb4c92ad3c2fe21fedf,
         type: 3}
       propertyPath: m_LocalPosition.x
