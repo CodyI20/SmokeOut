@@ -44,15 +44,6 @@ public class TaskManager : MonoBehaviour
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
 
         textComponent.text = taskData.taskDescription;
-
-        // Attach a function to the complete button to toggle task completion
-        //completeButton.onClick.AddListener(() => ToggleTaskComplete(taskData, textComponent));
-
-        // Update text appearance based on the task's completion state
-        if (taskData.isComplete)
-        {
-            SetTextStrikethrough(textComponent);
-        }
     }
 
     public void MarkTaskAsComplete(string taskName)
