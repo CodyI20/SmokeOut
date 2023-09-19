@@ -101,13 +101,12 @@ public class TasksManager : MonoBehaviour
         TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
     }
 
-
-
-
     private Dictionary<string, Task> CreateTaskMap()
     {
         //Load all QuestInfoSO Scriptable Objects under the Assets/Resources/Tasks folder
         TaskInfoSO[] allTasks = Resources.LoadAll<TaskInfoSO>("Tasks");
+        if (allTasks == null)
+            return null;
 
         //Create a task map
         Dictionary<string, Task> idToTaskMap = new Dictionary<string, Task>();
@@ -115,7 +114,7 @@ public class TasksManager : MonoBehaviour
         {
             if (idToTaskMap.ContainsKey(taskInfo.id))
             {
-                Debug.LogWarning("Duplicate ID found when creating task map:" + taskInfo.id);
+                Debug.LogWarning("Duplicate ID found when creating task map: " + taskInfo.id);
             }
             idToTaskMap.Add(taskInfo.id, new Task(taskInfo));
 
@@ -128,7 +127,7 @@ public class TasksManager : MonoBehaviour
         Task task = taskMap[id];
         if (task == null)
         {
-            Debug.LogError("ID not found in the Task Map" + id);
+            Debug.LogError("ID not found in the Task Map: " + id);
         }
         return task;
     }

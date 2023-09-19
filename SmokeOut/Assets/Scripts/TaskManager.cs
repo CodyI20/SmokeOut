@@ -1,6 +1,6 @@
-using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class TaskManagerUI : MonoBehaviour
 {
@@ -70,7 +70,8 @@ public class TaskManagerUI : MonoBehaviour
 
     void SetTextStrikethrough(TextMeshProUGUI textComponent)
     {
-        _taskDoneAudio.Play();
+        if (_taskDoneAudio != null)
+            _taskDoneAudio.Play();
         textComponent.fontStyle |= FontStyles.Strikethrough;
     }
 
