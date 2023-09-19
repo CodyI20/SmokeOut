@@ -47,7 +47,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueQueue.Count == 0)
         {
-            TaskManager._taskManager.MarkTaskAsComplete(nameText.text);
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete(nameText.text);
             Destroy(_dialogueInProgress);
             if(_dialogueInProgress._outline != null)
                 Destroy(_dialogueInProgress._outline);

@@ -2,68 +2,52 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class TaskManager : MonoBehaviour
+public class TaskManagerUI : MonoBehaviour
 {
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
-    [SerializeField] private List<TaskData> predefinedTasks;
     private HashSet<GameObject> taskItems = new HashSet<GameObject>();
     private GameObject taskItemToBeRemoved = null;
 
-    public static TaskManager _taskManager { get; private set; }
+    [SerializeField] private AudioSource _taskDoneAudio;
+
+    public static TaskManagerUI _taskManagerUI { get; private set; }
 
     private void Awake()
     {
-        if (_taskManager == null)
-            _taskManager = this;
+        if (_taskManagerUI == null)
+            _taskManagerUI = this;
     }
 
     private void Start()
     {
-        InitializeTasks();
+
     }
 
-    void InitializeTasks()
+    public void CreateTaskItem(string id)
     {
-        foreach (TaskData taskData in predefinedTasks)
-        {
-            CreateTaskItem(taskData);
-        }
-    }
-
-    void CreateTaskItem(TaskData taskData)
-    {
-        taskData.isComplete = false;
         GameObject taskItem = Instantiate(taskItemPrefab, taskListParent);
         TaskIdentifier taskIdentifier = taskItem.GetComponent<TaskIdentifier>();
-        taskIdentifier.identifier = taskData.taskName;
+        taskIdentifier.identifier = id;
         taskItems.Add(taskItem);
+
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        textComponent.text = taskData.taskDescription;
-
-        // Attach a function to the complete button to toggle task completion
-        //completeButton.onClick.AddListener(() => ToggleTaskComplete(taskData, textComponent));
-
-        // Update text appearance based on the task's completion state
-        if (taskData.isComplete)
-        {
-            SetTextStrikethrough(textComponent);
-        }
+        textComponent.text = id;
     }
 
     public void MarkTaskAsComplete(string taskName)
     {
-        foreach(GameObject task in taskItems)
+        foreach (GameObject task in taskItems)
         {
-            if(task.GetComponent<TaskIdentifier>().identifier == taskName)
+            if (task.GetComponent<TaskIdentifier>().identifier == taskName)
             {
                 SetTextStrikethrough(task.GetComponentInChildren<TextMeshProUGUI>());
                 taskItemToBeRemoved = task;
                 break;
             }
         }
-        if(taskItemToBeRemoved != null)
+        if (taskItemToBeRemoved != null)
         {
             taskItems.Remove(taskItemToBeRemoved);
             taskItemToBeRemoved = null;
@@ -86,6 +70,7 @@ public class TaskManager : MonoBehaviour
 
     void SetTextStrikethrough(TextMeshProUGUI textComponent)
     {
+        _taskDoneAudio.Play();
         textComponent.fontStyle |= FontStyles.Strikethrough;
     }
 
@@ -96,6 +81,6 @@ public class TaskManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _taskManager = null;
+        _taskManagerUI = null;
     }
 }

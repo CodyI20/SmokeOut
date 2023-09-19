@@ -12,15 +12,15 @@ public class TasksManager : MonoBehaviour
     {
         taskMap = CreateTaskMap();
     }
-     private void OnEnable()
+    private void OnEnable()
     {
         Debug.Log("Checking if onEnable is activated before initialisation code");
         GameEventsManager.instance.taskEvents.onStartTask += StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask += AdvanceTask;
-        GameEventsManager.instance.taskEvents.onFinishTask += FinishTask; 
+        GameEventsManager.instance.taskEvents.onFinishTask += FinishTask;
     }
 
-     private void OnDisable()
+    private void OnDisable()
     {
         GameEventsManager.instance.taskEvents.onStartTask -= StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask -= AdvanceTask;
@@ -72,6 +72,7 @@ public class TasksManager : MonoBehaviour
         Task task = GetTaskById(id);
         task.InstantiateCurrentTaskStep(this.transform);
         ChangeTaskState(task.info.id, TaskState.IN_PROGRESS);
+        TaskManagerUI._taskManagerUI.CreateTaskItem(id);
     }
 
     private void AdvanceTask(string id)
@@ -97,14 +98,17 @@ public class TasksManager : MonoBehaviour
     {
         Task task = GetTaskById(id);
         ChangeTaskState(task.info.id, TaskState.FINISHED);
+        TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
     }
 
 
-    private Dictionary<string,Task> CreateTaskMap()
+
+
+    private Dictionary<string, Task> CreateTaskMap()
     {
         //Load all QuestInfoSO Scriptable Objects under the Assets/Resources/Tasks folder
         TaskInfoSO[] allTasks = Resources.LoadAll<TaskInfoSO>("Tasks");
-        
+
         //Create a task map
         Dictionary<string, Task> idToTaskMap = new Dictionary<string, Task>();
         foreach (TaskInfoSO taskInfo in allTasks)
@@ -120,14 +124,13 @@ public class TasksManager : MonoBehaviour
     }
 
     private Task GetTaskById(string id)
+    {
+        Task task = taskMap[id];
+        if (task == null)
         {
-            Task task = taskMap[id];
-            if (task == null)
-            {
-                Debug.LogError("ID not found in the Task Map" + id);
-
-            }
-            return task;
+            Debug.LogError("ID not found in the Task Map" + id);
         }
-     
+        return task;
+    }
+
 }
