@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HoverOutline : MonoBehaviour
@@ -10,7 +9,7 @@ public class HoverOutline : MonoBehaviour
     [SerializeField] private float outlineWidth = 2f; // Set your desired outline width here
 
     [Header("Select the interaction type!")]
-    [SerializeField] private InteractionType interactionType = InteractionType.Mouse;
+    [SerializeField] private InteractionType interactionType = InteractionType.Trigger;
 
     private void Awake()
     {
@@ -32,7 +31,7 @@ public class HoverOutline : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(interactionType == InteractionType.Mouse)
+        if (interactionType == InteractionType.Mouse)
         {
             outlineComponent.enabled = true;
         }
@@ -40,7 +39,7 @@ public class HoverOutline : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if(interactionType == InteractionType.Mouse)
+        if (interactionType == InteractionType.Mouse)
         {
             outlineComponent.enabled = false;
         }
@@ -50,7 +49,8 @@ public class HoverOutline : MonoBehaviour
     {
         if (interactionType == InteractionType.Trigger && other.CompareTag("Player"))
         {
-            outlineComponent.enabled = true;
+            if (outlineComponent != null)
+                outlineComponent.enabled = true;
         }
     }
 
@@ -58,7 +58,8 @@ public class HoverOutline : MonoBehaviour
     {
         if (interactionType == InteractionType.Trigger && other.CompareTag("Player"))
         {
-            outlineComponent.enabled = false;
+            if (outlineComponent != null)
+                outlineComponent.enabled = false;
         }
     }
 }

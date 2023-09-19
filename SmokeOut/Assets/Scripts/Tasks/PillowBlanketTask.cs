@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class PillowBlanketTask : MonoBehaviour
 {
-    [SerializeField] private GameObject _pillow;
-    [SerializeField] private GameObject _blanket;
+    private GameObject _pillow;
+    private GameObject _blanket;
     private List<GameObject> _itemsCollected;
 
-    private void Awake()
+    private void Start()
     {
+        _pillow = GameObject.Find("Pillow");
+        _blanket = GameObject.Find("Blanket");
         _itemsCollected = new List<GameObject> { _blanket, _pillow };
     }
 
@@ -27,6 +29,7 @@ public class PillowBlanketTask : MonoBehaviour
         if (_itemsCollected.Count == 0)
         {
             Debug.Log("TaskComplete!");
+            Destroy(gameObject);
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("PillowTask");
         }
     }

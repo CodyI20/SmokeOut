@@ -2,25 +2,19 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowerTask : MonoBehaviour
+public class ShowerTask : TaskSuperclass
 {
-    private const KeyCode keyToPress = KeyCode.Q;
+    private const KeyCode keyToPress = KeyCode.E;
 
 
     [SerializeField] private float timeToHoldKeyDown;
+
+    [SerializeField] private GameObject _UIElement;
 
     private bool canInteract = false;
     private float timeItHeldKey = 0f;
     private bool heldKeyFirstTime = false;
     private float timeItStartedHoldingKey = 0f;
-
-    private HoverOutline _hoverOutline;
-    private QuickOutline _outline;
-
-    private void Awake()
-    {
-        _hoverOutline = GetComponent<HoverOutline>();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +25,7 @@ public class ShowerTask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canInteract)
-            CheckForKeyDown();
+        CheckForKeyDown();
     }
 
     void CheckForKeyDown()
@@ -49,10 +42,10 @@ public class ShowerTask : MonoBehaviour
                 timeItHeldKey++;
                 timeItStartedHoldingKey = Time.timeSinceLevelLoad;
             }
+            CheckForTaskComplete();
         }
         else
         {
-            CheckForTaskComplete();
             heldKeyFirstTime = false;
             timeItHeldKey = 0f;
             timeItStartedHoldingKey = 0f;
@@ -63,12 +56,11 @@ public class ShowerTask : MonoBehaviour
     {
         if (timeItHeldKey >= timeToHoldKeyDown)
         {
-            _outline = GetComponent<QuickOutline>();
-            if (_outline != null)
-                Destroy(_outline);
-            Destroy(_hoverOutline);
+            DestroyOutlines();
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Shower");
+            _UIElement.SetActive(false);
             Debug.Log("CompletedShower!");
+            Destroy(this);
         }
     }
 
@@ -77,6 +69,7 @@ public class ShowerTask : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canInteract = true;
+            _UIElement.SetActive(true);
         }
     }
 
@@ -85,6 +78,7 @@ public class ShowerTask : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canInteract = false;
+            _UIElement.SetActive(false);
         }
     }
 }

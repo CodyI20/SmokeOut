@@ -2,34 +2,17 @@ using UnityEngine;
 
 public class ObjectPickUp : MonoBehaviour
 {
-    [SerializeField] private float pickupRange = 3f; // The range within which the player can pick up the item.
-
-    private bool isInRange = false; // To track if the player is in range of the item.
-    private bool isHovering = false; // To track if the mouse cursor is hovering over the item.
+    private bool canPickUpItem = false;
 
     private void Update()
     {
         if (GameManager._gameState == GameState.Paused)
             return;
-        isInRange = Vector3.Distance(PlayerMovement.player.transform.position, transform.position) < pickupRange;
 
-        // Check if the player is in range and the mouse cursor is hovering over the item.
-        if (isInRange && isHovering && Input.GetMouseButtonDown(0))
+        if(canPickUpItem && Input.GetKeyDown(KeyCode.E))
         {
             PickUpItem();
         }
-    }
-
-    private void OnMouseEnter()
-    {
-        // Called when the mouse cursor enters the item's collider.
-        isHovering = true;
-    }
-
-    private void OnMouseExit()
-    {
-        // Called when the mouse cursor exits the item's collider.
-        isHovering = false;
     }
 
     private void PickUpItem()
@@ -39,8 +22,19 @@ public class ObjectPickUp : MonoBehaviour
         Destroy(gameObject,2f);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
+        if (other.CompareTag("Player"))
+        {
+            canPickUpItem = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canPickUpItem = false;
+        }
     }
 }

@@ -7,6 +7,12 @@ public class NegativeEffects : MonoBehaviour
     public static NegativeEffects _negativeEffect { get; private set; }
     [HideInInspector]
     public bool isIncreasing = true;
+    [HideInInspector]
+    public bool choicesAppear = false;
+
+    private float timeItStartedIncreasing = 0f;
+    [Range(1f, 100f)]
+    [SerializeField] private float timeAfterWhichChoicesCanAppear = 40f;
 
     //VIGNETTE
     private Vignette vignette;
@@ -30,6 +36,7 @@ public class NegativeEffects : MonoBehaviour
     private void Update()
     {
         ChangeIntensity();
+        ChoicesAppear();
     }
 
     void ChangeIntensity()
@@ -51,7 +58,16 @@ public class NegativeEffects : MonoBehaviour
             if (vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
             {
                 isIncreasing = true;
+                timeItStartedIncreasing = Time.timeSinceLevelLoad;
             }
+        }
+    }
+
+    void ChoicesAppear()
+    {
+        if (!choicesAppear && isIncreasing && Time.timeSinceLevelLoad > timeItStartedIncreasing + timeAfterWhichChoicesCanAppear)
+        {
+            choicesAppear = Random.Range(0, 1000) == 0;
         }
     }
 
@@ -59,6 +75,8 @@ public class NegativeEffects : MonoBehaviour
     {
         vignette.intensity.Override(0);
         _audioPlayed.volume = 0;
+        timeItStartedIncreasing = Time.timeSinceLevelLoad;
+        choicesAppear = false;
     }
 
     private void OnDestroy()

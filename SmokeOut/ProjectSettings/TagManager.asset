@@ -9,6 +9,7 @@ TagManager:
   - Task
   - DialogueUI
   - TrashTask
+  - ChoiceUI
   layers:
   - Default
   - TransparentFX

@@ -490,6 +490,32 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3548003103015838130, guid: 3ed3617edb095864f8a07f954963ac02,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548003103015838130, guid: 3ed3617edb095864f8a07f954963ac02,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: db9d4245e1189b64c8c967d8b5791353,
+        type: 3}
+    - target: {fileID: 3548003103015838130, guid: 3ed3617edb095864f8a07f954963ac02,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548003103015838130, guid: 3ed3617edb095864f8a07f954963ac02,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548003103015838130, guid: 3ed3617edb095864f8a07f954963ac02,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3745311145824686838, guid: 3ed3617edb095864f8a07f954963ac02,
         type: 3}
       propertyPath: m_Name
