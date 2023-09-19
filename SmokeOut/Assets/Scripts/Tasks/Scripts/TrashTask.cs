@@ -33,7 +33,7 @@ public class TrashTask : MonoBehaviour
     {
         if(trashPickedUp == trashToPickUp)
         {
-            TaskManager._taskManager.MarkTaskAsComplete("Trash");
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Trash");
         }
     }
 
