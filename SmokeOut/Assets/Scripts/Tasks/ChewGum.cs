@@ -5,19 +5,22 @@ public class ChewingGumInteraction : TaskSuperclass
 {
     [SerializeField] private KeyCode interactionKey = KeyCode.E;
     [SerializeField] private float requiredChewDuration = 5f;
+    [Range(0.5f,2f)]
     [SerializeField] private float failureDuration = 1f; // Time until task failure if key isn't pressed
     [SerializeField] private GameObject _gumUI;
 
     private bool isChewing = false;
     private bool hasPressedKey = false;
     private float chewTimer = 0f;
+    private float timeItPressed = 0f;
 
     private void Update()
     {
-        if (isChewing)
+        if (isChewing && GameManager._gameState!=GameState.Paused)
         {
             if (Input.GetKeyDown(interactionKey))
             {
+                timeItPressed = Time.timeSinceLevelLoad;
                 hasPressedKey = true;
 
                 if (chewTimer >= requiredChewDuration)
@@ -35,9 +38,13 @@ public class ChewingGumInteraction : TaskSuperclass
                     }
                 }
             }
-            if(hasPressedKey)
+            if(hasPressedKey && Time.timeSinceLevelLoad < timeItPressed+failureDuration)
             {
                 chewTimer += Time.deltaTime;
+            }
+            else if(hasPressedKey && Time.timeSinceLevelLoad >= timeItPressed+failureDuration)
+            {
+                ChewingInterrupted();
             }
         }
     }

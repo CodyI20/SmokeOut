@@ -13,14 +13,22 @@ public class SmokeChoice : MonoBehaviour
     void CheckForChoicesState()
     {
         if (NegativeEffects._negativeEffect.choicesAppear)
+        {
+            GameManager.gameManagerInstance.PauseGame();
             _UIDisplay.SetActive(true);
+        }
+        else
+        {
+            GameManager.gameManagerInstance.ResumeGame();
+            _UIDisplay.SetActive(false);
+        }
     }
 
     public void ChooseSmoke()
     {
         NegativeEffects._negativeEffect.ClearEffects();
         NegativeEffects._negativeEffect.choicesAppear = false;
-        _UIDisplay.SetActive(false);
+        PlayerHealth._playerHealth.TakeDamage();
         // Reduce player lives by 1;
     }
 
@@ -28,7 +36,6 @@ public class SmokeChoice : MonoBehaviour
     {
         NegativeEffects._negativeEffect.isIncreasing = false;
         NegativeEffects._negativeEffect.choicesAppear = false;
-        _UIDisplay.SetActive(false);
         // Implement some sort of "Good job" message
     }
 

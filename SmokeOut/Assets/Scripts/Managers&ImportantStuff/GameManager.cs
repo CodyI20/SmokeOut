@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             gameManagerInstance = this;
             DontDestroyOnLoad(gameObject);
-            //PlayerHealth.OnPlayerDeath += PlayerDied;
+            PlayerHealth.OnPlayerDeath += PlayerDead;
             //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
         }
         else
@@ -58,11 +58,6 @@ public class GameManager : MonoBehaviour
         _dialogueManager = DialogueManager._dialogueManager;
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
-    }
-
-    void PlayerTookDamage()
-    {
-        LevelLoader.levelLoaderInstance.ReloadCurrentScene();
     }
 
     //void PlayerDied()
@@ -98,6 +93,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void PlayerDead()
+    {
+        LevelLoader.levelLoaderInstance.ReloadCurrentScene();
+    }
+
     public void ToggleMenuOptionsUI()
     {
         if (_menuUI && _optionsUI)
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
         if (_dialogueUI != null && _dialogueUI.activeSelf)
         {
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         AudioListener.pause = true;
         Time.timeScale = 0;
     }
-    void ResumeGame()
+    public void ResumeGame()
     {
         if(_dialogueUI != null && dialogueWasOpen)
         {

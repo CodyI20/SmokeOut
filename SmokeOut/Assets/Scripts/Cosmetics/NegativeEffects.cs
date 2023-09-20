@@ -65,7 +65,7 @@ public class NegativeEffects : MonoBehaviour
 
     void ChoicesAppear()
     {
-        if (!choicesAppear && isIncreasing && Time.timeSinceLevelLoad > timeItStartedIncreasing + timeAfterWhichChoicesCanAppear)
+        if (!choicesAppear && isIncreasing && Time.timeSinceLevelLoad > timeItStartedIncreasing + timeAfterWhichChoicesCanAppear)//Make it viable for choices to work if it's decreasing (!isIncreasing)
         {
             choicesAppear = Random.Range(0, 1000) == 0;
         }
