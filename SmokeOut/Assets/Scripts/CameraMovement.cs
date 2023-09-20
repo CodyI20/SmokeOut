@@ -14,13 +14,14 @@ public class CameraMovement : MonoBehaviour
     private Vector3 dragOrigin;
 
     private Vector3 _initialCameraPlayerDistanceVector;
-    private bool lockCamera = false;
+    private bool lockCamera = true;
 
     [SerializeField] private CameraPanType panType;
 
     private void Start()
     {
         _initialCameraPlayerDistanceVector = transform.position - PlayerMovement.player.transform.position;
+        LockCameraOnPlayer();
     }
 
     // Update is called once per frame
