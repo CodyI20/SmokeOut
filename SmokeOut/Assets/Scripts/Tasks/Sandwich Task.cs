@@ -28,7 +28,7 @@ public class SandwichTask : TaskSuperclass
         CheckForItems();
         if(canInteractWithStove && Input.GetKeyDown(KeyCode.E))
         {
-            DestroyOutlines();
+            TaskCompletionEvents();
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Sandwich");
             Debug.Log("Sandwich made!");
             Destroy(this);
@@ -37,15 +37,15 @@ public class SandwichTask : TaskSuperclass
 
     void CheckForItems()
     {
-        if (bread != null && !bread.activeSelf)
+        if (bread == null)
         {
             breadCollected = true;
         }
-        else if (cheese != null && !cheese.activeSelf)
+        else if (cheese == null)
         {
             cheeseCollected = true;
         }
-        else if (lettuce != null && !lettuce.activeSelf)
+        else if (lettuce == null)
             lettuceCollected = true;
 
         if (breadCollected && cheeseCollected && lettuceCollected)

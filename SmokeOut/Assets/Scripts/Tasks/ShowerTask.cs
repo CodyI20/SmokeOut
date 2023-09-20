@@ -6,15 +6,27 @@ public class ShowerTask : TaskSuperclass
 {
     private const KeyCode keyToPress = KeyCode.E;
 
+    private MeshRenderer m_MeshRenderer;
+
 
     [SerializeField] private float timeToHoldKeyDown;
 
     [SerializeField] private GameObject _UIElement;
 
+    [SerializeField] private Material _changedMaterial;
+    [SerializeField] private Material _initialMaterial;
+    private Material _currentMaterial;
+
     private bool canInteract = false;
     private float timeItHeldKey = 0f;
     private bool heldKeyFirstTime = false;
     private float timeItStartedHoldingKey = 0f;
+
+    private void Awake()
+    {
+        m_MeshRenderer = GetComponent<MeshRenderer>();
+        _currentMaterial = _initialMaterial;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,12 +38,14 @@ public class ShowerTask : TaskSuperclass
     void Update()
     {
         CheckForKeyDown();
+        UpdateMaterial();
     }
 
     void CheckForKeyDown()
     {
         if (Input.GetKey(keyToPress))
         {
+            _currentMaterial = _changedMaterial;
             if (!heldKeyFirstTime)
             {
                 timeItStartedHoldingKey = Time.timeSinceLevelLoad;
@@ -46,6 +60,7 @@ public class ShowerTask : TaskSuperclass
         }
         else
         {
+            _currentMaterial = _initialMaterial;
             heldKeyFirstTime = false;
             timeItHeldKey = 0f;
             timeItStartedHoldingKey = 0f;
@@ -56,7 +71,8 @@ public class ShowerTask : TaskSuperclass
     {
         if (timeItHeldKey >= timeToHoldKeyDown)
         {
-            DestroyOutlines();
+            _currentMaterial = _initialMaterial;
+            TaskCompletionEvents();
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Shower");
             _UIElement.SetActive(false);
             Debug.Log("CompletedShower!");
@@ -78,7 +94,13 @@ public class ShowerTask : TaskSuperclass
         if (other.CompareTag("Player"))
         {
             canInteract = false;
+            _currentMaterial = _initialMaterial;
             _UIElement.SetActive(false);
         }
+    }
+
+    void UpdateMaterial()
+    {
+        m_MeshRenderer.material = _currentMaterial;
     }
 }

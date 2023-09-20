@@ -70,7 +70,7 @@ public class ChewingGumInteraction : TaskSuperclass
     {
         // Handle the successful completion of chewing, e.g., progress in the game.
         Debug.Log("Chewing Complete!");
-        DestroyOutlines();
+        TaskCompletionEvents();
         isChewing = false;
         chewTimer = 0f;
         Destroy(gameObject);

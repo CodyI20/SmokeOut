@@ -3,6 +3,7 @@ using UnityEngine;
 public class ObjectPickUp : MonoBehaviour
 {
     private bool canPickUpItem = false;
+    [SerializeField] private float timeTillItGetsDestroyed = 1f;
 
     private void Update()
     {
@@ -15,11 +16,10 @@ public class ObjectPickUp : MonoBehaviour
         }
     }
 
-    private void PickUpItem()
+    protected virtual void PickUpItem()
     {
-        TrashTask.Instance.IncreaseTrashNumber();
-        gameObject.SetActive(false); // Disables the item.
-        Destroy(gameObject,2f);
+        PlayerMovement.player.PlayInteractAnimation();
+        Destroy(gameObject,timeTillItGetsDestroyed);
     }
 
     private void OnTriggerEnter(Collider other)
