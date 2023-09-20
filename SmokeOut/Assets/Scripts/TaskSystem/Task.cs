@@ -33,6 +33,7 @@ public class Task
         {
             TaskStep taskStep = Object.Instantiate<GameObject>(taskStepPrefab, parentTransform)
                 .GetComponent<TaskStep>();
+            taskStep.InitializeTaskStep(info.id);
         }
 
     }

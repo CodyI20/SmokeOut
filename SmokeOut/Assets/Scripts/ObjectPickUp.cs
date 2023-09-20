@@ -7,7 +7,6 @@ public class ObjectPickUp : MonoBehaviour
     private bool isInRange = false; // To track if the player is in range of the item.
     private bool isHovering = false; // To track if the mouse cursor is hovering over the item.
 
-
     private void Update()
     {
         if (GameManager._gameState == GameState.Paused)

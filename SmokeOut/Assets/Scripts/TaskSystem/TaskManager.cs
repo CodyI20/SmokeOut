@@ -18,6 +18,7 @@ public class TasksManager : MonoBehaviour
         GameEventsManager.instance.taskEvents.onStartTask += StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask += AdvanceTask;
         GameEventsManager.instance.taskEvents.onFinishTask += FinishTask;
+
     }
 
     private void OnDisable()
@@ -25,6 +26,7 @@ public class TasksManager : MonoBehaviour
         GameEventsManager.instance.taskEvents.onStartTask -= StartTask;
         GameEventsManager.instance.taskEvents.onAdvanceTask -= AdvanceTask;
         GameEventsManager.instance.taskEvents.onFinishTask -= FinishTask;
+
     }
 
     private void Start()
@@ -37,10 +39,13 @@ public class TasksManager : MonoBehaviour
 
     private void ChangeTaskState(string id, TaskState state)
     {
+        //Debug.Log("Changing the task state");
         Task task = GetTaskById(id);
         task.state = state;
         GameEventsManager.instance.taskEvents.TaskStateChange(task);
     }
+
+
 
     private bool CheckRequirementsMet(Task task)
     {
@@ -65,10 +70,23 @@ public class TasksManager : MonoBehaviour
         return meetsRequirements;
     }
 
+    private void Update()
+    {
+        // loop through ALL tasks
+        foreach (Task task in taskMap.Values)
+        {
+            // if the player is now meeting the requirements, switch over to the CAN_START state
+            if (task.state == TaskState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(task))
+            {
+                ChangeTaskState(task.info.id, TaskState.CAN_START);
+            }
+        }
+    }
+
 
     private void StartTask(string id)
     {
-        Debug.Log("Started the task");
+        //Debug.Log("Started the task");
         Task task = GetTaskById(id);
         task.InstantiateCurrentTaskStep(this.transform);
         ChangeTaskState(task.info.id, TaskState.IN_PROGRESS);
@@ -85,17 +103,20 @@ public class TasksManager : MonoBehaviour
         // if there are more steps, instantiate the next one
         if (task.CurrentStepExists())
         {
+            Debug.Log("Moving on to the next step");
             task.InstantiateCurrentTaskStep(this.transform);
         }
         // if there are no more steps, then we've finished all of them for this task
         else
         {
+            Debug.Log("You have finished all the steps");
             ChangeTaskState(task.info.id, TaskState.CAN_FINISH);
         }
     }
 
     private void FinishTask(string id)
     {
+        Debug.Log("You have finished the task");
         Task task = GetTaskById(id);
         ChangeTaskState(task.info.id, TaskState.FINISHED);
         TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
@@ -103,10 +124,8 @@ public class TasksManager : MonoBehaviour
 
     private Dictionary<string, Task> CreateTaskMap()
     {
-        //Load all QuestInfoSO Scriptable Objects under the Assets/Resources/Tasks folder
+        //Load all TaskInfoSO Scriptable Objects under the Assets/Resources/Tasks folder
         TaskInfoSO[] allTasks = Resources.LoadAll<TaskInfoSO>("Tasks");
-        if (allTasks == null)
-            return null;
 
         //Create a task map
         Dictionary<string, Task> idToTaskMap = new Dictionary<string, Task>();

@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManagerInstance { get; private set; }
     //private HashSet<RequiredPickUp> _allRequiredPickUpsInScene;
     private int _scoreToWin;
-    private DialogueManager _dialogueManager;
+    /// private DialogueManager _dialogueManager;
     [SerializeField] private GameObject _menuUI;
     [SerializeField] private GameObject _optionsUI;
     private bool dialogueWasOpen = false;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _dialogueManager = DialogueManager._dialogueManager;
+        //_dialogueManager = DialogueManager._dialogueManager;
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
     }

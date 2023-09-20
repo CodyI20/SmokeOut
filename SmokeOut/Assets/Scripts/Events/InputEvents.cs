@@ -13,6 +13,16 @@ public class InputEvents
         }
     }
 
+    public event Action onTriggerInteract;
+    public void TriggerInteract()
+    {
+        if(onTriggerInteract != null)
+        {
+            onTriggerInteract();
+        }
+    }
+
+
     public event Action onPickUp;
     public void PickUp()
     {

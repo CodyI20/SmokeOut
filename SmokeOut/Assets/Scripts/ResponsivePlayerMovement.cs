@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /// Dialogue system implement. Freezing the player when the dialouge is opened
+        
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
@@ -30,10 +36,23 @@ public class PlayerMovement : MonoBehaviour
         // Apply movement force.
         Vector3 movement = moveDirection * playerSpeed * Time.deltaTime;
         rb.velocity = new Vector3(movement.x, 0, movement.z);
+
+        
     }
 
     void OnDestroy()
     {
         player = null;
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            GameEventsManager.instance.inputEvents.TriggerInteract();
+        }
+    }
+
+  
 }
+

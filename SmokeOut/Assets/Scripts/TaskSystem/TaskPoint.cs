@@ -25,28 +25,28 @@ public class TaskPoint : MonoBehaviour
     private void OnEnable()
     {
         GameEventsManager.instance.taskEvents.onTaskStateChange += TaskStateChange;
-        GameEventsManager.instance.inputEvents.onSubmitClicked += SubmitClicked;
+        GameEventsManager.instance.inputEvents.onTriggerInteract += TriggerDetect;
     }
 
     private void OnDisable()
     {
         GameEventsManager.instance.taskEvents.onTaskStateChange -= TaskStateChange;
-        GameEventsManager.instance.inputEvents.onSubmitClicked -= SubmitClicked;
+        GameEventsManager.instance.inputEvents.onTriggerInteract -= TriggerDetect;
     }
 
-    private void SubmitClicked()
+    private void TriggerDetect()
     {
         if (!playerIsNear)
         {
             return;
         }
 
-        if (startPoint)
+        if (currentTaskState.Equals(TaskState.CAN_START) && startPoint)
         {
             Debug.Log("Starting task:" + taskId);
             GameEventsManager.instance.taskEvents.StartTask(taskId);
         }
-        else if (finishPoint)
+        else if (currentTaskState.Equals(TaskState.CAN_FINISH) && finishPoint)
         {
             GameEventsManager.instance.taskEvents.FinishTask(taskId);
         }
@@ -74,6 +74,14 @@ public class TaskPoint : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerIsNear = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (currentTaskState.Equals(TaskState.CAN_FINISH) )
+        {
+            GameEventsManager.instance.taskEvents.FinishTask(taskId);
         }
     }
 }
