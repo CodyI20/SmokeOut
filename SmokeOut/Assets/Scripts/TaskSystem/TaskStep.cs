@@ -8,6 +8,32 @@ public abstract class TaskStep : MonoBehaviour
 
     private string taskId;
 
+    private HoverOutline _hoverOutline;
+    private QuickOutline _outline;
+    [SerializeField] protected AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _hoverOutline = GetComponent<HoverOutline>();
+    }
+
+    protected void TaskCompletionEvents()
+    {
+        _outline = GetComponent<QuickOutline>();
+        if (_outline != null)
+            Destroy(_outline);
+        Destroy(_hoverOutline);
+        PlayAudioSource();
+    }
+
+    private void PlayAudioSource()
+    {
+        if (_audioSource != null)
+            _audioSource?.Play();
+    }
+
+
+
     public void InitializeTaskStep(string taskId)
     {
         this.taskId = taskId;
@@ -23,5 +49,43 @@ public abstract class TaskStep : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+    }
+
+    /// Object pick up
+
+    private bool canPickUpItem = false;
+    [SerializeField] private float timeTillItGetsDestroyed = 1f;
+
+    private void Update()
+    {
+        if (GameManager._gameState == GameState.Paused)
+            return;
+
+        if (canPickUpItem && Input.GetKeyDown(KeyCode.E))
+        {
+            PickUpItem();
+        }
+    }
+
+    protected virtual void PickUpItem()
+    {
+        PlayerMovement.player.PlayInteractAnimation();
+        Destroy(gameObject, timeTillItGetsDestroyed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canPickUpItem = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canPickUpItem = false;
+        }
     }
 }

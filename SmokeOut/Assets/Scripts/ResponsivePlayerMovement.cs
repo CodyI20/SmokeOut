@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 1f;
     private Rigidbody rb;
+    private Animator animator;
 
     //Creating a player singleton for easy access to the player all the time ( Since there will only be one player )
     public static PlayerMovement player { get; private set; }
@@ -15,17 +14,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player == null) //Setting the player to this game object if it's not already assigned ( Doing this in Awake ensures that any other object will be able to find the player. )
             player = this;
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        /// Dialogue system implement. Freezing the player when the dialouge is opened
-        
-
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        if (moveDirection.magnitude > 0)
+            animator.SetBool("isWalking", true);
+        else
+            animator.SetBool("isWalking", false);
 
         if (moveDirection != Vector3.zero)
         {
@@ -36,23 +37,16 @@ public class PlayerMovement : MonoBehaviour
         // Apply movement force.
         Vector3 movement = moveDirection * playerSpeed * Time.deltaTime;
         rb.velocity = new Vector3(movement.x, 0, movement.z);
+    }
 
-        
+    public void PlayInteractAnimation()
+    {
+        Debug.Log("Changing Animator!");
+        animator.SetTrigger("pickingUp");
     }
 
     void OnDestroy()
     {
         player = null;
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            GameEventsManager.instance.inputEvents.TriggerInteract();
-        }
-    }
-
-  
 }
-

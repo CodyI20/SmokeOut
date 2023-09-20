@@ -86,7 +86,7 @@ public class TasksManager : MonoBehaviour
 
     private void StartTask(string id)
     {
-        //Debug.Log("Started the task");
+        Debug.Log("Started the task");
         Task task = GetTaskById(id);
         task.InstantiateCurrentTaskStep(this.transform);
         ChangeTaskState(task.info.id, TaskState.IN_PROGRESS);

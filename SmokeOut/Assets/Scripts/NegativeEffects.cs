@@ -1,60 +1,86 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class NegativeEffects : MonoBehaviour
 {
-    //GENERAL
-    [Min(10f)]
-    [SerializeField] private float timeTillIntensityIncreases = 10f;
+    public static NegativeEffects _negativeEffect { get; private set; }
+    [HideInInspector]
+    public bool isIncreasing = true;
+    [HideInInspector]
+    public bool choicesAppear = false;
+
+    private float timeItStartedIncreasing = 0f;
+    [Range(1f, 100f)]
+    [SerializeField] private float timeAfterWhichChoicesCanAppear = 40f;
 
     //VIGNETTE
     private Vignette vignette;
-    [Range(0.05f, 0.15f)]
+    [Range(0.000005f, 0.0001f)]
     [SerializeField] private float vignetteIntensityChange = 0.1f;
 
     //SOUNDS
     [SerializeField] private AudioSource _audioPlayed;
-    [Range(0.05f, 0.1f)]
+    [Range(0.000005f, 0.0001f)]
     [SerializeField] private float soundIntensityChange = 0.1f;
 
     private void Awake()
     {
+        if (_negativeEffect == null)
+            _negativeEffect = this;
         _audioPlayed = GetComponent<AudioSource>();
         VolumeProfile volumeProfile = GetComponent<Volume>()?.profile;
         if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(IncreaseIntensityOverTime());
-    }
-
     private void Update()
     {
-        ClearEffects();
+        ChangeIntensity();
+        ChoicesAppear();
     }
 
-    IEnumerator IncreaseIntensityOverTime()
+    void ChangeIntensity()
     {
-        while (true)
+        if (isIncreasing)
         {
-            yield return new WaitForSeconds(timeTillIntensityIncreases);
             if (vignette != null)
                 vignette.intensity.Override((float)vignette.intensity + vignetteIntensityChange);
             if (_audioPlayed != null)
                 _audioPlayed.volume += soundIntensityChange;
         }
+        else
+        {
+            if (vignette != null && vignette.intensity != vignette.intensity.min)
+                vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange);
+            if (_audioPlayed != null && _audioPlayed.volume > 0)
+                _audioPlayed.volume -= soundIntensityChange;
+
+            if (vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
+            {
+                isIncreasing = true;
+                timeItStartedIncreasing = Time.timeSinceLevelLoad;
+            }
+        }
     }
 
-    void ClearEffects()
+    void ChoicesAppear()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (!choicesAppear && isIncreasing && Time.timeSinceLevelLoad > timeItStartedIncreasing + timeAfterWhichChoicesCanAppear)//Make it viable for choices to work if it's decreasing (!isIncreasing)
         {
-            vignette.intensity.Override(0);
-            _audioPlayed.volume = 0;
+            choicesAppear = Random.Range(0, 1000) == 0;
         }
+    }
+
+    public void ClearEffects()
+    {
+        vignette.intensity.Override(0);
+        _audioPlayed.volume = 0;
+        timeItStartedIncreasing = Time.timeSinceLevelLoad;
+        choicesAppear = false;
+    }
+
+    private void OnDestroy()
+    {
+        _negativeEffect = null;
     }
 }
