@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayInteractAnimation()
     {
-        Debug.Log("Changing Animator!");
         animator.SetTrigger("pickingUp");
     }
 
