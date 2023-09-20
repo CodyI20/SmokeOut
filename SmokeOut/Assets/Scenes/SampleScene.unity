@@ -1512,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a836d8566a712545bcc4bc899b770ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskInfoForPoint: {fileID: 0}
+  taskInfoForPoint: {fileID: 11400000, guid: af4fbaa2804915040854df42df9dbb5f, type: 2}
   startPoint: 0
   finishPoint: 1
 --- !u!135 &636354494
