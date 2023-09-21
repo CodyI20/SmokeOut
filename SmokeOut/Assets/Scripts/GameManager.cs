@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManagerInstance { get; private set; }
     //private HashSet<RequiredPickUp> _allRequiredPickUpsInScene;
     private int _scoreToWin;
-    [SerializeField] private GameObject _menuUI;
-    [SerializeField] private GameObject _optionsUI;
+    private GameObject _menuUI;
+    private GameObject _optionsUI;
 
 
     /// <summary>
@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        _menuUI = GameObject.FindGameObjectWithTag("MenuUI");
+        _optionsUI = GameObject.FindGameObjectWithTag("OptionsUI");
         _gameState = GameState.Resumed;
         if (gameManagerInstance == null)
         {
@@ -49,6 +51,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(_optionsUI != null)
+        {
+            _optionsUI.SetActive(false);
+        }
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
     }

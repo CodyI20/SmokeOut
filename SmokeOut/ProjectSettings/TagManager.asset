@@ -13,6 +13,8 @@ TagManager:
   - ChoiceUI
   - GumUI
   - Phone
+  - MenuUI
+  - OptionsUI
   layers:
   - Default
   - TransparentFX
