@@ -7,8 +7,13 @@ Hello there! #speaker:TV #portrait:TV_normal #layout:left
 === main ===
 You want to start the task?
 + [Yes]
-    ~ startTask("CleanTheRoom")
-    Here, go clean your filthy <color=\#F8FF30>room</color>! #portrait:TV_normal
+    ~startTask("Showering")
+    ~startTask("PillowBlanket")
+    ~startTask("ChewTheGum")
+    ~startTask("FindingThePhone")
+    ~startTask("MakeTheSandwich")
+    
+    Here you go, your <color=\#F8FF30>list</color> have been updated ! #portrait:TV_normal
         
 + [No]
     Oh, well suit your self then #portrait:TV_normal

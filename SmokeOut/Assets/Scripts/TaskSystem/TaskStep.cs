@@ -23,7 +23,38 @@ public abstract class TaskStep : MonoBehaviour
         if (_outline != null)
             Destroy(_outline);
         Destroy(_hoverOutline);
+<<<<<<< Updated upstream
         PlayAudioSource();
+=======
+        if (id != null)
+        {
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
+        }
+
+        PlayAudioSource();
+        if (destoryGameObject)
+        {
+            if (_audioSource != null)
+            {
+                Destroy(gameObject, _audioSource.clip.length);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            if (_audioSource != null)
+            {
+                Destroy(this, _audioSource.clip.length);
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+>>>>>>> Stashed changes
     }
 
     private void PlayAudioSource()
@@ -45,7 +76,7 @@ public abstract class TaskStep : MonoBehaviour
         {
             isFinished = true;
             GameEventsManager.instance.taskEvents.AdvanceTask(taskId);
-
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete(taskId);
             Destroy(this.gameObject);
         }
 

@@ -50,6 +50,7 @@ public class ChewingGumInteraction : MonoBehaviour
 
                 if (chewTimer >= requiredChewDuration)
                 {
+                    GameEventsManager.instance.detectEvents.FinishShowering();
                     ChewingComplete();
                 }
             }
