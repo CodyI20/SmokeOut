@@ -51,9 +51,9 @@ public class NegativeEffects : MonoBehaviour
         else
         {
             if (vignette != null && vignette.intensity != vignette.intensity.min)
-                vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange);
+                vignette.intensity.Override((float)vignette.intensity - vignetteIntensityChange*1.5f);
             if (_audioPlayed != null && _audioPlayed.volume > 0)
-                _audioPlayed.volume -= soundIntensityChange;
+                _audioPlayed.volume -= soundIntensityChange*1.5f;
 
             if (vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
             {
