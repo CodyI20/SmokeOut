@@ -16,12 +16,12 @@ public class NegativeEffects : MonoBehaviour
 
     //VIGNETTE
     private Vignette vignette;
-    [Range(0.0000005f, 0.00001f)]
+    [Range(0.000005f, 0.0001f)]
     [SerializeField] private float vignetteIntensityChange = 0.1f;
 
     //SOUNDS
     [SerializeField] private AudioSource _audioPlayed;
-    [Range(0.0000005f, 0.00001f)]
+    [Range(0.000005f, 0.0001f)]
     [SerializeField] private float soundIntensityChange = 0.1f;
 
     private void Awake()

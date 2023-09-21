@@ -1860,8 +1860,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6466655607433481235, guid: 9f644d87517540d46ba7e11c98515e26,
         type: 3}
+      propertyPath: soundIntensityChange
+      value: 0.000041
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466655607433481235, guid: 9f644d87517540d46ba7e11c98515e26,
+        type: 3}
+      propertyPath: vignetteIntensityChange
+      value: 0.000041
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466655607433481235, guid: 9f644d87517540d46ba7e11c98515e26,
+        type: 3}
       propertyPath: timeAfterWhichChoicesCanAppear
-      value: 1
+      value: 34.9
       objectReference: {fileID: 0}
     - target: {fileID: 6978379255076046011, guid: 9f644d87517540d46ba7e11c98515e26,
         type: 3}
@@ -7410,45 +7420,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 3320331020934252016, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2.745838
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320331020934252016, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 3.3591995
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320331020934252016, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 1.9318236
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320331020934252016, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -1.8557591
-      objectReference: {fileID: 0}
     - target: {fileID: 4281824141729392227, guid: 353f4ed33a845c844821efd88df5f1b2,
         type: 3}
       propertyPath: m_Name
       value: house
-      objectReference: {fileID: 0}
-    - target: {fileID: 5408963226082283628, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1.6210619
-      objectReference: {fileID: 0}
-    - target: {fileID: 5408963226082283628, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 2.2960095
-      objectReference: {fileID: 0}
-    - target: {fileID: 5408963226082283628, guid: 353f4ed33a845c844821efd88df5f1b2,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -1.8622189
       objectReference: {fileID: 0}
     - target: {fileID: 6126575281004301912, guid: 353f4ed33a845c844821efd88df5f1b2,
         type: 3}
@@ -7505,6 +7480,36 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.6487857
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1000834
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2.585091
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -4.984028
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.9305105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439126326786703061, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1.7176775
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

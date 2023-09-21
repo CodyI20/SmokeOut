@@ -23,6 +23,9 @@ public class TaskSuperclass : MonoBehaviour
     private void PlayAudioSource()
     {
         if (_audioSource != null)
-            _audioSource?.Play();
+        {
+            _audioSource.Play();
+            Destroy(this, _audioSource.clip.length);
+        }
     }
 }
