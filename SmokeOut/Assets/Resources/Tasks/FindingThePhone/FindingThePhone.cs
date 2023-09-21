@@ -9,27 +9,25 @@ using UnityEngine.UI;
 public class FindingThePhone : TaskStep
 {   
     private bool phoneIsNear = false;
-     private void OnEnable()
-    {
-        GameEventsManager.instance.detectEvents.onDetectPhone += PhoneDetected;
-        GameEventsManager.instance.detectEvents.onUndetectPhone += PhoneNotDetected;
+    
 
-    }
-    private void OnDisable()
+    private void OnTriggerEnter(Collider other)
     {
-        GameEventsManager.instance.detectEvents.onDetectPhone -= PhoneDetected;
-        GameEventsManager.instance.detectEvents.onUndetectPhone -= PhoneNotDetected;
+        if (other.gameObject.tag == "Player")
+        {
+            phoneIsNear = true;
+        }
     }
 
-    private void PhoneDetected()
+    private void OnTriggerExit(Collider other)
     {
-        phoneIsNear = true;
+        if (other.gameObject.tag == "Player")
+        {
+            phoneIsNear = false;
+        }
     }
 
-    private void PhoneNotDetected()
-    {
-        phoneIsNear = false;
-    }
+    
 
     void Update()
     {

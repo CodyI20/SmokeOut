@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FindingThePhone
   m_EditorClassIdentifier: 
   <id>k__BackingField: FindingThePhone
-  displayName: 
+  displayName: Find the phone
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:

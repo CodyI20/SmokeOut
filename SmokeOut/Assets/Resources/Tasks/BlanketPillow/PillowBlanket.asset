@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd4c8a06b59d8ef4b89e93252023e1da, type: 3}
-  m_Name: ChewTheGum
+  m_Name: PillowBlanket
   m_EditorClassIdentifier: 
-  <id>k__BackingField: ChewTheGum
-  displayName: Chewing the gum
+  <id>k__BackingField: PillowBlanket
+  displayName: Getting the pillow
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:
-  - {fileID: 3145577483608677759, guid: 6f0693736e642514cad960d0fb0abc83, type: 3}
+  - {fileID: 6617089289122359055, guid: 9e1c83cfb2e923847bc51309ce197705, type: 3}
   goldReward: 0
   experienceReward: 0

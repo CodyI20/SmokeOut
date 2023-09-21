@@ -32,6 +32,7 @@ public class SandwichTask : TaskStep
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Sandwich");
             Debug.Log("Sandwich made!");
             Destroy(this);
+            GameEventsManager.instance.detectEvents.FinishSandwich();
         }
     }
 

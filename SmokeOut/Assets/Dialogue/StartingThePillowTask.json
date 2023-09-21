@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[["^Next, I should probably grab that pillow. ","#","^speaker:John","/#","\n","^I was wondering where it went","\n","ev","str","^PillowBlanket","/str",{"x()":"startTask","exArgs":1},"pop","/ev","\n","end",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

@@ -31,6 +31,7 @@ public class PillowBlanketTask : MonoBehaviour
             Debug.Log("TaskComplete!");
             Destroy(gameObject);
             //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("PillowTask");
+            GameEventsManager.instance.detectEvents.FinishPillow();
         }
     }
 }
