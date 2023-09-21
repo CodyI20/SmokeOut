@@ -1269,6 +1269,34 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.1024504
   m_Center: {x: 2.6049995, y: 0.9057865, z: -3.529921}
+--- !u!114 &680611117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680611104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a836d8566a712545bcc4bc899b770ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskInfoForPoint: {fileID: 11400000, guid: 5b46dc2856a9c0449b1e60d29904c37b, type: 2}
+  startPoint: 0
+  finishPoint: 1
+--- !u!114 &680611118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680611104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5edd2db64250234a973650dc65b7d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: e3d7d90150be01547abd86ad4931c113, type: 3}
 --- !u!1 &719028759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2340,6 +2368,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 680611116}
+    - targetCorrespondingSourceObject: {fileID: 6190697459663114812, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680611118}
+    - targetCorrespondingSourceObject: {fileID: 6190697459663114812, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680611117}
     - targetCorrespondingSourceObject: {fileID: 9029334574791889502, guid: 353f4ed33a845c844821efd88df5f1b2,
         type: 3}
       insertIndex: -1
