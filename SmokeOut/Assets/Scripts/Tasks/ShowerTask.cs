@@ -5,7 +5,7 @@ using TMPro;
 
 public class ShowerTask : TaskStep
 {
-    [SerializeField] private KeyCode keyToPress = KeyCode.E;
+    private KeyCode keyToPress;
 
     private MeshRenderer m_MeshRenderer;
 
@@ -13,6 +13,7 @@ public class ShowerTask : TaskStep
     [SerializeField] private float timeToHoldKeyDown;
 
     [SerializeField] private GameObject _UIElement;
+    private TextMeshProUGUI _UIElementText;
 
     [SerializeField] private Material _changedMaterial;
     [SerializeField] private Material _initialMaterial;
@@ -24,6 +25,7 @@ public class ShowerTask : TaskStep
     private TextMeshProUGUI text;
 
     private float timeItHeldKey = 0f;
+    private bool isInRange = false;
     private bool heldKeyFirstTime = false;
     private float timeItStartedHoldingKey = 0f;
 
@@ -39,8 +41,11 @@ public class ShowerTask : TaskStep
         _showerBigUI = GameObject.FindGameObjectWithTag("ShowerUI");
         showerSlider = _showerBigUI.GetComponentInChildren<Slider>();
         text = _showerBigUI.GetComponentInChildren<TextMeshProUGUI>();
+        _UIElementText = _UIElement.GetComponentInChildren<TextMeshProUGUI>();
         text.text = $"Hold the interact key ({keyToPress}) for {timeToHoldKeyDown} seconds";
+        _UIElementText.text = $"Hold ({keyToPress})";
         _showerBigUI.SetActive(false);
+        keyToPress = (KeyCode)Random.Range(97, 123);
     }
 
     // Update is called once per frame
@@ -48,31 +53,39 @@ public class ShowerTask : TaskStep
     {
         CheckForKeyDown();
         UpdateMaterial();
+        text.text = $"Hold the interact key ({keyToPress}) for {timeToHoldKeyDown} seconds";
     }
 
     void CheckForKeyDown()
     {
-        if (Input.GetKey(keyToPress))
+        if (isInRange)
         {
-            _currentMaterial = _changedMaterial;
-            if (!heldKeyFirstTime)
+            if (Input.GetKey(keyToPress))
             {
-                timeItStartedHoldingKey = Time.timeSinceLevelLoad;
-                heldKeyFirstTime = true;
+                _currentMaterial = _changedMaterial;
+                if (!heldKeyFirstTime)
+                {
+                    heldKeyFirstTime = true;
+                    timeItStartedHoldingKey = Time.timeSinceLevelLoad;
+                }
+                if (Time.timeSinceLevelLoad - timeItStartedHoldingKey >= 1f)
+                {
+                    timeItHeldKey++;
+                    keyToPress = (KeyCode)Random.Range(97, 123);
+                    timeItStartedHoldingKey = Time.timeSinceLevelLoad;
+                }
+                CheckForTaskComplete();
             }
-            if (heldKeyFirstTime && Time.timeSinceLevelLoad - timeItStartedHoldingKey >= 1f)
+            if(heldKeyFirstTime)
             {
-                timeItHeldKey++;
-                timeItStartedHoldingKey = Time.timeSinceLevelLoad;
+                PlayerMovement.player._playerSpeed = 0f;
             }
-            CheckForTaskComplete();
         }
         else
         {
-            _currentMaterial = _initialMaterial;
             heldKeyFirstTime = false;
-            timeItHeldKey = 0f;
             timeItStartedHoldingKey = 0f;
+            timeItHeldKey = 0f;
         }
         if (showerSlider != null)
         {
@@ -87,6 +100,7 @@ public class ShowerTask : TaskStep
             _currentMaterial = _initialMaterial;
             _UIElement.SetActive(false);
             _showerBigUI.SetActive(false);
+            PlayerMovement.player._playerSpeed = PlayerMovement.player.initialPlayerSpeed;
             Debug.Log("CompletedShower!");
             GameEventsManager.instance.detectEvents.FinishShowering();
             TaskCompletionEvents("Shower");
@@ -97,6 +111,7 @@ public class ShowerTask : TaskStep
     {
         if (other.CompareTag("Player"))
         {
+            isInRange = true;
             _UIElement.SetActive(true);
             _showerBigUI.SetActive(true);
             maxSliderValue = timeToHoldKeyDown; // Set the max value of the slider.
@@ -109,6 +124,7 @@ public class ShowerTask : TaskStep
     {
         if (other.CompareTag("Player"))
         {
+            isInRange = false;
             _currentMaterial = _initialMaterial;
             _UIElement.SetActive(false);
             _showerBigUI.SetActive(false);

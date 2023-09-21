@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PillowBlanketTask : TaskStep
 {
+    [SerializeField] private KeyCode interactKey = KeyCode.E;
     private GameObject _pillow;
     private GameObject _blanket;
-    private List<GameObject> _itemsCollected;
+    private bool foundItems = false;
+    private bool isInRange = false;
 
     private void Start()
     {
         _pillow = GameObject.Find("Pillow");
         _blanket = GameObject.Find("Blanket");
-        _itemsCollected = new List<GameObject> { _blanket, _pillow };
     }
 
     void Update()
@@ -21,17 +23,36 @@ public class PillowBlanketTask : TaskStep
 
     void CheckTaskDone()
     {
-        foreach(GameObject item in _itemsCollected.ToArray())
+        if (_pillow == null && _blanket == null)
         {
-            if (item.activeSelf == false)
-                _itemsCollected.Remove(item);
+            foundItems = true;
         }
-        if (_itemsCollected.Count == 0)
+        if (foundItems && isInRange && Input.GetKeyDown(interactKey))
         {
-            Debug.Log("TaskComplete!");
-            Destroy(gameObject);
-            GameEventsManager.instance.detectEvents.FinishPillow();
-            TaskCompletionEvents("PillowTask");
+            EndTask();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = false;
+        }
+    }
+
+    void EndTask()
+    {
+        //Do finish task method here
+        Debug.Log("CompletedPillowBlanket!");
+        TaskCompletionEvents("PillowTask");
     }
 }

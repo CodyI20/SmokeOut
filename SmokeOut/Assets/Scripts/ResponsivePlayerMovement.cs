@@ -4,16 +4,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 1f;
+    public float initialPlayerSpeed {  get; private set; }
     private Rigidbody rb;
     private Animator animator;
 
     //Creating a player singleton for easy access to the player all the time ( Since there will only be one player )
     public static PlayerMovement player { get; private set; }
+    
+    public float _playerSpeed
+    {
+        get { return playerSpeed; }
+        set { playerSpeed = value; }
+    }
 
     void Awake()
     {
         if (player == null) //Setting the player to this game object if it's not already assigned ( Doing this in Awake ensures that any other object will be able to find the player. )
             player = this;
+        initialPlayerSpeed = playerSpeed;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
