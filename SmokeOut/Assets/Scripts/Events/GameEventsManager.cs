@@ -7,6 +7,7 @@ public class GameEventsManager : MonoBehaviour
 
     public TaskEvents taskEvents;
     public InputEvents inputEvents;
+    public DetectEvents detectEvents;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class GameEventsManager : MonoBehaviour
 
         taskEvents = new TaskEvents();
         inputEvents = new InputEvents();
+        detectEvents = new DetectEvents();
     }
 
 }

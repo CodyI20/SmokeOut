@@ -17,7 +17,6 @@ MonoBehaviour:
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:
-  - {fileID: 274352742972370831, guid: 594a4efb17ad19141b5b5be04ebba3df, type: 3}
-  - {fileID: 274352742972370831, guid: 594a4efb17ad19141b5b5be04ebba3df, type: 3}
+  - {fileID: 5639849869097008568, guid: 74c6d378a808cef45bc4fd4ef17bc121, type: 3}
   goldReward: 0
   experienceReward: 0

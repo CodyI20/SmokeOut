@@ -9,6 +9,10 @@ TagManager:
   - Task
   - DialogueUI
   - Trash
+  - ShowerUI
+  - ChoiceUI
+  - GumUI
+  - Phone
   layers:
   - Default
   - TransparentFX
