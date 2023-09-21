@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class ChewingGumInteraction : TaskStep
 {
@@ -50,6 +49,7 @@ public class ChewingGumInteraction : TaskStep
 
                 if (chewTimer >= requiredChewDuration)
                 {
+                    GameEventsManager.instance.detectEvents.FinishChewing();
                     ChewingComplete();
                 }
             }
@@ -103,8 +103,8 @@ public class ChewingGumInteraction : TaskStep
         isChewing = false;
         chewTimer = 0f;
         _gumBigUI.SetActive(false);
-        GameEventsManager.instance.detectEvents.FinishChewing(); 
-        TaskCompletionEvents("Gum",true);
+
+        TaskCompletionEvents("ChewTheGum", true);
     }
 
     private void ChewingInterrupted()

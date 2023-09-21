@@ -16,6 +16,7 @@ public class NewBehaviourScript : TaskStep
 
     private void ChewFinished()
     {
+        Debug.Log("Chew Finished");
         FinishTaskStep();
     }
 }

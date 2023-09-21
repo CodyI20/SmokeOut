@@ -35,6 +35,7 @@ public class FindingThePhone : TaskStep
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                TaskCompletionEvents("FindingThePhone");
                 FinishTaskStep();
             }
            

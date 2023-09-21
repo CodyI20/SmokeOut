@@ -8,10 +8,6 @@ public class SandwichTask : TaskStep
 
 
     private bool canInteractWithStove = false;
-
-    private bool breadCollected = false;
-    private bool cheeseCollected = false;
-    private bool lettuceCollected = false;
     private bool collectedAllItems = false;
 
     // Start is called before the first frame update
@@ -28,28 +24,15 @@ public class SandwichTask : TaskStep
         CheckForItems();
         if(canInteractWithStove && Input.GetKeyDown(KeyCode.E))
         {
-            TaskCompletionEvents();
-            TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Sandwich");
             Debug.Log("Sandwich made!");
             GameEventsManager.instance.detectEvents.FinishSandwich();
-            TaskCompletionEvents("Sandwich");
+            TaskCompletionEvents("MakeTheSandwich");
         }
     }
 
     void CheckForItems()
     {
-        if (bread == null)
-        {
-            breadCollected = true;
-        }
-        else if (cheese == null)
-        {
-            cheeseCollected = true;
-        }
-        else if (lettuce == null)
-            lettuceCollected = true;
-
-        if (breadCollected && cheeseCollected && lettuceCollected)
+        if (bread == null && lettuce == null && cheese == null)
             collectedAllItems = true;
     }
 

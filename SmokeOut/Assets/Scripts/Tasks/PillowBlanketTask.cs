@@ -53,6 +53,6 @@ public class PillowBlanketTask : TaskStep
     {
         //Do finish task method here
         Debug.Log("CompletedPillowBlanket!");
-        TaskCompletionEvents("PillowTask");
+        TaskCompletionEvents("PillowBlanket");
     }
 }

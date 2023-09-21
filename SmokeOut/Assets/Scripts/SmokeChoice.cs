@@ -24,6 +24,7 @@ public class SmokeChoice : MonoBehaviour
         }
     }
 
+
     public void ChooseSmoke()
     {
         NegativeEffects._negativeEffect.ClearEffects();
