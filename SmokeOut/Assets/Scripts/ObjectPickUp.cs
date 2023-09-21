@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectPickUp : MonoBehaviour
+public class ObjectPickUp : TaskStep
 {
     private bool canPickUpItem = false;
     [SerializeField] private float timeTillItGetsDestroyed = 1f;
@@ -19,7 +19,7 @@ public class ObjectPickUp : MonoBehaviour
     protected virtual void PickUpItem()
     {
         PlayerMovement.player.PlayInteractAnimation();
-        Destroy(gameObject,timeTillItGetsDestroyed);
+        TaskCompletionEvents("Pick up your phone", true);
         GameEventsManager.instance.inputEvents.PickUp();
     }
 

@@ -29,10 +29,10 @@ public class SandwichTask : TaskStep
         if(canInteractWithStove && Input.GetKeyDown(KeyCode.E))
         {
             TaskCompletionEvents();
-            //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Sandwich");
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Sandwich");
             Debug.Log("Sandwich made!");
-            Destroy(this);
             GameEventsManager.instance.detectEvents.FinishSandwich();
+            TaskCompletionEvents("Sandwich");
         }
     }
 

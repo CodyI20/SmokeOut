@@ -17,19 +17,47 @@ public abstract class TaskStep : MonoBehaviour
         _hoverOutline = GetComponent<HoverOutline>();
     }
 
-    protected void TaskCompletionEvents()
+    protected void TaskCompletionEvents(string id = null, bool destoryGameObject = false)
     {
         _outline = GetComponent<QuickOutline>();
         if (_outline != null)
             Destroy(_outline);
         Destroy(_hoverOutline);
+        if (id != null)
+        {
+            TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
+        }
         PlayAudioSource();
+        if (destoryGameObject)
+        {
+            if(_audioSource != null)
+            {
+                Destroy(gameObject, _audioSource.clip.length);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            if(_audioSource != null)
+            {
+                Destroy(this, _audioSource.clip.length);
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
     }
 
     private void PlayAudioSource()
     {
         if (_audioSource != null)
-            _audioSource?.Play();
+        {
+            _audioSource.Play();
+        }
     }
 
 

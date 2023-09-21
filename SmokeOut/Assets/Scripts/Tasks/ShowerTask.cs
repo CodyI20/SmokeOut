@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShowerTask : MonoBehaviour
+public class ShowerTask : TaskStep
 {
     [SerializeField] private KeyCode keyToPress = KeyCode.E;
 
@@ -85,13 +85,11 @@ public class ShowerTask : MonoBehaviour
         if (timeItHeldKey >= timeToHoldKeyDown)
         {
             _currentMaterial = _initialMaterial;
-            //TaskCompletionEvents();
-            //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("Shower");
             _UIElement.SetActive(false);
             _showerBigUI.SetActive(false);
             Debug.Log("CompletedShower!");
-            Destroy(this);
             GameEventsManager.instance.detectEvents.FinishShowering();
+            TaskCompletionEvents("Shower");
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
-public class ChewingGumInteraction : MonoBehaviour
+public class ChewingGumInteraction : TaskStep
 {
     public static ChewingGumInteraction Instance { get; private set; }
     [SerializeField] private KeyCode interactionKey = KeyCode.E;
@@ -100,13 +100,11 @@ public class ChewingGumInteraction : MonoBehaviour
     {
         // Handle the successful completion of chewing, e.g., progress in the game.
         Debug.Log("Chewing Complete!");
-        //TaskCompletionEvents();
         isChewing = false;
         chewTimer = 0f;
         _gumBigUI.SetActive(false);
-        Destroy(gameObject);
         GameEventsManager.instance.detectEvents.FinishChewing(); 
-
+        TaskCompletionEvents("Gum",true);
     }
 
     private void ChewingInterrupted()

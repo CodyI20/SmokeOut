@@ -6,6 +6,7 @@ public class TaskManagerUI : MonoBehaviour
 {
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
+    [SerializeField] private List<TaskData> tasks;
     private HashSet<GameObject> taskItems = new HashSet<GameObject>();
     private GameObject taskItemToBeRemoved = null;
 
@@ -21,7 +22,10 @@ public class TaskManagerUI : MonoBehaviour
 
     private void Start()
     {
-
+        foreach(TaskData item in tasks)
+        {
+            CreateTaskItem(item.taskName);
+        }
     }
 
     public void CreateTaskItem(string id)

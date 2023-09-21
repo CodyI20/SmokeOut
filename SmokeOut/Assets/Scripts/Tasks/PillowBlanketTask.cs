@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PillowBlanketTask : MonoBehaviour
+public class PillowBlanketTask : TaskStep
 {
     private GameObject _pillow;
     private GameObject _blanket;
@@ -30,8 +30,8 @@ public class PillowBlanketTask : MonoBehaviour
         {
             Debug.Log("TaskComplete!");
             Destroy(gameObject);
-            //TaskManagerUI._taskManagerUI.MarkTaskAsComplete("PillowTask");
             GameEventsManager.instance.detectEvents.FinishPillow();
+            TaskCompletionEvents("PillowTask");
         }
     }
 }
