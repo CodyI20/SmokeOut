@@ -91,6 +91,11 @@ public class GameManager : MonoBehaviour
         return TaskManagerUI._taskManagerUI.hasFilledTaskList && TaskManagerUI._taskManagerUI.taskItems.Count == 0;
     }
 
+    public void PlayerHasDied()
+    {
+        LevelLoader.levelLoaderInstance.LoadGameOver();
+    }
+
     void ReloadScene()
     {
         LevelLoader.levelLoaderInstance.ReloadCurrentScene();

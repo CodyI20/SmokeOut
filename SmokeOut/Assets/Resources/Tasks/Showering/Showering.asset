@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Showering
   m_EditorClassIdentifier: 
   <id>k__BackingField: Showering
-  displayName: Taking a shower
+  displayName: Take a shower
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:

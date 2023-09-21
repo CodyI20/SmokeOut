@@ -7,7 +7,7 @@ public class TaskManagerUI : MonoBehaviour
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> tasks;
-    public HashSet<GameObject> taskItems = new HashSet<GameObject>();
+    public List<GameObject> taskItems = new List<GameObject>();
     public bool hasFilledTaskList = false;
     private GameObject taskItemToBeRemoved = null;
 
@@ -21,14 +21,6 @@ public class TaskManagerUI : MonoBehaviour
             _taskManagerUI = this;
     }
 
-    private void Start()
-    {
-        foreach(TaskData item in tasks)
-        {
-            CreateTaskItem(item.taskName);
-        }
-    }
-
     private void Update()
     {
         if(taskItems.Count == 5)
@@ -37,7 +29,7 @@ public class TaskManagerUI : MonoBehaviour
         }
     }
 
-    public void CreateTaskItem(string id)
+    public void CreateTaskItem(string id, string display)
     {
         GameObject taskItem = Instantiate(taskItemPrefab, taskListParent);
         TaskIdentifier taskIdentifier = taskItem.GetComponent<TaskIdentifier>();
@@ -46,7 +38,7 @@ public class TaskManagerUI : MonoBehaviour
 
         TextMeshProUGUI textComponent = taskItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        textComponent.text = id;
+        textComponent.text = display;
     }
 
     public void MarkTaskAsComplete(string taskName)

@@ -44,10 +44,9 @@ public class Timer : MonoBehaviour
 
     void EndOfTimer()
     {
-        // Timer has reached zero
         currentTime = 0;
+        GameManager.gameManagerInstance.PlayerHasDied();
         isRunning = false;
-        totalTime -= 60f;
     }
 
     public void StartTimer()

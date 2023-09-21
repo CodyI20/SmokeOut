@@ -90,7 +90,7 @@ public class TasksManager : MonoBehaviour
         Task task = GetTaskById(id);
         task.InstantiateCurrentTaskStep(this.transform);
         ChangeTaskState(task.info.id, TaskState.IN_PROGRESS);
-        TaskManagerUI._taskManagerUI.CreateTaskItem(task.info.displayName);
+        TaskManagerUI._taskManagerUI.CreateTaskItem(id, task.info.displayName);
     }
 
     private void AdvanceTask(string id)
@@ -119,7 +119,7 @@ public class TasksManager : MonoBehaviour
         Debug.Log("You have finished the task");
         Task task = GetTaskById(id);
         ChangeTaskState(task.info.id, TaskState.FINISHED);
-        TaskManagerUI._taskManagerUI.MarkTaskAsComplete(task.info.displayName);
+        TaskManagerUI._taskManagerUI.MarkTaskAsComplete(id);
     }
 
     private Dictionary<string, Task> CreateTaskMap()

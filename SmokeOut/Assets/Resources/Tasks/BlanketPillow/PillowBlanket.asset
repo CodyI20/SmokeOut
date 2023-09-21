@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PillowBlanket
   m_EditorClassIdentifier: 
   <id>k__BackingField: PillowBlanket
-  displayName: Get the pillow&blanket
+  displayName: Bring the pillow and blanket to the closet
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:

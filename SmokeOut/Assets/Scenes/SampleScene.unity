@@ -155,7 +155,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1657,6 +1657,8 @@ MonoBehaviour:
   taskItemPrefab: {fileID: 7047704010236284342, guid: 7d825e73f67e4cf4a8d77a8f0cc0cb36,
     type: 3}
   tasks: []
+  taskItems: []
+  hasFilledTaskList: 0
   _taskDoneAudio: {fileID: 1289573725}
 --- !u!4 &957173281
 Transform:
