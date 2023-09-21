@@ -12,6 +12,7 @@ public class FreezingPlayer : MonoBehaviour
         GameEventsManager.instance.detectEvents.onNotShowering += Thaw;
         GameEventsManager.instance.detectEvents.onDialogue += Freeze;
         GameEventsManager.instance.detectEvents.onNonDialogue += Thaw;
+        GameEventsManager.instance.detectEvents.onFinishShowering += Thaw;
 
     }
     public void OnDisable()
@@ -20,6 +21,7 @@ public class FreezingPlayer : MonoBehaviour
         GameEventsManager.instance.detectEvents.onNotShowering -= Thaw;
         GameEventsManager.instance.detectEvents.onDialogue -= Freeze;
         GameEventsManager.instance.detectEvents.onNonDialogue -= Thaw;
+        GameEventsManager.instance.detectEvents.onFinishShowering -= Thaw;
     }
     void Freeze()
     {

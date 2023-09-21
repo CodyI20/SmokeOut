@@ -693,7 +693,7 @@ PrefabInstance:
     - target: {fileID: 7382991827169219767, guid: 840d8e98cbf467840a0067ee0bc578e5,
         type: 3}
       propertyPath: playerSpeed
-      value: 60
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1209,10 +1209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba171ac0d8b6d14690fcdfe93765fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 3
-  panBorderThickness: 15
-  dragSpeed: 10
-  panType: 1
 --- !u!4 &473070917
 Transform:
   m_ObjectHideFlags: 0
@@ -2443,6 +2439,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714804154299958548, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: timeToDoTask
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714804154299958548, guid: 353f4ed33a845c844821efd88df5f1b2,
+        type: 3}
+      propertyPath: timeTillFailure
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575243196050613894, guid: 353f4ed33a845c844821efd88df5f1b2,
         type: 3}

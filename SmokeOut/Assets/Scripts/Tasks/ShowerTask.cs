@@ -1,7 +1,6 @@
-using UnityEditor.SceneManagement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ShowerTask : TaskStep
 {
@@ -10,7 +9,7 @@ public class ShowerTask : TaskStep
     private MeshRenderer m_MeshRenderer;
 
 
-    [SerializeField] private float timeToHoldKeyDown;
+    [SerializeField] private float timeToDoTask;
 
     [SerializeField] private GameObject _UIElement;
     private TextMeshProUGUI _UIElementText;
@@ -24,10 +23,13 @@ public class ShowerTask : TaskStep
     private float maxSliderValue; // This will store the requiredChewDuration value.
     private TextMeshProUGUI text;
 
-    private float timeItHeldKey = 0f;
+    [SerializeField] private float timeTillFailure = 0.5f;
     private bool isInRange = false;
-    private bool heldKeyFirstTime = false;
-    private float timeItStartedHoldingKey = 0f;
+    private bool startedTask = false;
+    private float timeItStartedTask = 0f;
+    private float timeItPressedKey = 0f;
+    private float timePassed = 0f;
+    private bool pressedKey = false;
 
     private void Awake()
     {
@@ -41,11 +43,9 @@ public class ShowerTask : TaskStep
         _showerBigUI = GameObject.FindGameObjectWithTag("ShowerUI");
         showerSlider = _showerBigUI.GetComponentInChildren<Slider>();
         text = _showerBigUI.GetComponentInChildren<TextMeshProUGUI>();
-        _UIElementText = _UIElement.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = $"Hold the interact key ({keyToPress}) for {timeToHoldKeyDown} seconds";
-        _UIElementText.text = $"Hold ({keyToPress})";
         _showerBigUI.SetActive(false);
         keyToPress = (KeyCode)Random.Range(97, 123);
+        text.text = $"Press the key ({keyToPress})";
     }
 
     // Update is called once per frame
@@ -53,68 +53,113 @@ public class ShowerTask : TaskStep
     {
         CheckForKeyDown();
         UpdateMaterial();
-        text.text = $"Hold the interact key ({keyToPress}) for {timeToHoldKeyDown} seconds";
+        text.text = $"Press the key ({keyToPress})";
+    }
+
+    void CheckForFirstKey(KeyCode key)
+    {
+        if (Input.GetKeyDown(key))
+        {
+            timeItPressedKey = Time.timeSinceLevelLoad;
+            if (!startedTask)
+            {
+                startedTask = true;
+                _currentMaterial = _changedMaterial;
+                timeItStartedTask = Time.timeSinceLevelLoad;
+            }
+            if (startedTask)
+            {
+                CheckForTaskComplete();
+            }
+            keyToPress = (KeyCode)UnityEngine.Random.Range(97, 123);
+        }
     }
 
     void CheckForKeyDown()
     {
         if (isInRange)
         {
-            if (Input.GetKey(keyToPress))
+            if (startedTask)
             {
-                _currentMaterial = _changedMaterial;
-                if (!heldKeyFirstTime)
-                {
-                    heldKeyFirstTime = true;
-                    timeItStartedHoldingKey = Time.timeSinceLevelLoad;
-                }
-                if (Time.timeSinceLevelLoad - timeItStartedHoldingKey >= 1f)
-                {
-                    timeItHeldKey++;
-                    keyToPress = (KeyCode)Random.Range(97, 123);
-                    timeItStartedHoldingKey = Time.timeSinceLevelLoad;
-                }
+                timePassed += Time.deltaTime;
                 CheckForTaskComplete();
             }
-            if(heldKeyFirstTime)
+            if (Input.GetKeyDown(keyToPress))
             {
-                PlayerMovement.player._playerSpeed = 0f;
+                timeItPressedKey = Time.timeSinceLevelLoad;
+                Debug.Log($"timeItPressedKey: {timeItPressedKey}");
+                if (!startedTask)
+                {
+                    GameEventsManager.instance.detectEvents.Showering();
+                    startedTask = true;
+                    _currentMaterial = _changedMaterial;
+                    timeItStartedTask = Time.timeSinceLevelLoad;
+                }
+                keyToPress = (KeyCode)Random.Range(97, 123);
             }
+            if (startedTask && Time.timeSinceLevelLoad >= timeItPressedKey + timeTillFailure)
+            {
+                CancelShowering();
+            }
+            //foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            //{
+            //    if (keyCode == keyToPress)
+            //    {
+            //        if (Input.GetKeyDown(keyCode))
+            //        {
+            //            timeItPressedKey = Time.timeSinceLevelLoad;
+            //            if (!startedTask)
+            //            {
+            //                startedTask = true;
+            //                _currentMaterial = _changedMaterial;
+            //                timeItStartedTask = Time.timeSinceLevelLoad;
+            //            }
+            //            if (startedTask)
+            //            {
+            //                CheckForTaskComplete();
+            //            }
+            //            keyToPress = (KeyCode)UnityEngine.Random.Range(97, 123);
+            //        }
+            //    }
+            //    else
+            //        CancelShowering();
+            //}
+            showerSlider.value = timePassed;
         }
-        else
-        {
-            heldKeyFirstTime = false;
-            timeItStartedHoldingKey = 0f;
-            timeItHeldKey = 0f;
-        }
-        if (showerSlider != null)
-        {
-            showerSlider.value = timeItHeldKey;
-        }
+    }
+
+    void CancelShowering()
+    {
+        Debug.Log("Cancelling shower...");
+        timeItPressedKey = 0f;
+        timeItStartedTask = 0f;
+        startedTask = false;
+        _currentMaterial = _initialMaterial;
+        _showerBigUI.SetActive(false);
+        showerSlider.value = 0f;
+        timePassed = 0f;
+        GameEventsManager.instance.detectEvents.NotShowering();
     }
 
     void CheckForTaskComplete()
     {
-        if (timeItHeldKey >= timeToHoldKeyDown)
+        if (Time.timeSinceLevelLoad >= timeItStartedTask + timeToDoTask)
         {
             _currentMaterial = _initialMaterial;
-            _UIElement.SetActive(false);
             _showerBigUI.SetActive(false);
-            PlayerMovement.player._playerSpeed = PlayerMovement.player.initialPlayerSpeed;
             Debug.Log("CompletedShower!");
             GameEventsManager.instance.detectEvents.FinishShowering();
-            TaskCompletionEvents("Shower");
+            TaskCompletionEvents("Showering");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isInRange)
         {
             isInRange = true;
-            _UIElement.SetActive(true);
             _showerBigUI.SetActive(true);
-            maxSliderValue = timeToHoldKeyDown; // Set the max value of the slider.
+            maxSliderValue = timeToDoTask; // Set the max value of the slider.
             showerSlider.maxValue = maxSliderValue; // Set the slider's max value.
             showerSlider.value = 0f; // Initialize the slider's value to 0.
         }
@@ -122,12 +167,10 @@ public class ShowerTask : TaskStep
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isInRange)
         {
             isInRange = false;
-            _currentMaterial = _initialMaterial;
-            _UIElement.SetActive(false);
-            _showerBigUI.SetActive(false);
+            CancelShowering();
         }
     }
 
