@@ -7,7 +7,8 @@ public class TaskManagerUI : MonoBehaviour
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> tasks;
-    private HashSet<GameObject> taskItems = new HashSet<GameObject>();
+    public HashSet<GameObject> taskItems = new HashSet<GameObject>();
+    public bool hasFilledTaskList = false;
     private GameObject taskItemToBeRemoved = null;
 
     [SerializeField] private AudioSource _taskDoneAudio;
@@ -25,6 +26,14 @@ public class TaskManagerUI : MonoBehaviour
         foreach(TaskData item in tasks)
         {
             CreateTaskItem(item.taskName);
+        }
+    }
+
+    private void Update()
+    {
+        if(taskItems.Count == 5)
+        {
+            hasFilledTaskList=true;
         }
     }
 

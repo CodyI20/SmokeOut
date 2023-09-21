@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CleanTheRoom
   m_EditorClassIdentifier: 
   <id>k__BackingField: CleanTheRoom
-  displayName: CleanTheRoom
+  displayName: Clean the room
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:

@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7435536537261007430}
   - component: {fileID: 4819625048549921210}
-  - component: {fileID: 6901734588315207641}
-  - component: {fileID: 512967243471661805}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,44 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _menuUI: {fileID: 0}
   _optionsUI: {fileID: 0}
---- !u!114 &6901734588315207641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804844384046265311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c5fe91252e260a40a6e968769f63bf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  taskListParent: {fileID: 0}
-  taskItemPrefab: {fileID: 7047704010236284342, guid: 7d825e73f67e4cf4a8d77a8f0cc0cb36,
-    type: 3}
-  predefinedTasks:
-  - {fileID: 11400000, guid: 997c5c610dca5a841ab0c20001bcec7d, type: 2}
-  - {fileID: 11400000, guid: b30cbaba3d1356645acb215a559c4ff1, type: 2}
-  - {fileID: 11400000, guid: 4a2733428af5d8f4dad628a8014ce5d6, type: 2}
-  - {fileID: 11400000, guid: 8467ff0e8d14a034886326b2615689c0, type: 2}
-  - {fileID: 11400000, guid: 9c5205a2f11e08a4f98c3d8d710fc9bb, type: 2}
---- !u!114 &512967243471661805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6804844384046265311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1779dfeeb7067934b8df40aaf56a9ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dialogueInProgress: {fileID: 0}
-  nameText: {fileID: 0}
-  dialogueText: {fileID: 0}
-  dialogueBox: {fileID: 0}
-  optionButtons: []
-  choiceButtonPrefab: {fileID: 4434153565478125873, guid: 6477e1d406e83a5479cc3d4ede9f5106,
-    type: 3}
-  choiceButtonContainer: {fileID: 0}

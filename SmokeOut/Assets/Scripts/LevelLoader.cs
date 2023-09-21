@@ -42,6 +42,7 @@ public class LevelLoader : MonoBehaviour
 
     public void ReloadCurrentScene()
     {
+        GameManager.timeToFinish -= 60f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

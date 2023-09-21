@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChewTheGum
   m_EditorClassIdentifier: 
   <id>k__BackingField: ChewTheGum
-  displayName: Chewing the gum
+  displayName: Chew gum
   levelRequirement: 0
   taskPrerequisites: []
   taskStepPrefabs:
