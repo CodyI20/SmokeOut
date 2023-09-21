@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _menuUI = GameObject.FindGameObjectWithTag("MenuUI");
-        _optionsUI = GameObject.FindGameObjectWithTag("OptionsUI");
         _gameState = GameState.Resumed;
         if (gameManagerInstance == null)
         {
@@ -51,7 +49,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(_optionsUI != null)
+        _menuUI = GameObject.FindGameObjectWithTag("MenuUI");
+        _optionsUI = GameObject.FindGameObjectWithTag("OptionsUI");
+        if (_optionsUI != null)
         {
             _optionsUI.SetActive(false);
         }
@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        
         _gameState = GameState.Paused;
         AudioListener.pause = true;
         Time.timeScale = 0;

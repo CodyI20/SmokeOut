@@ -7,7 +7,7 @@ public class TaskManagerUI : MonoBehaviour
     [SerializeField] private Transform taskListParent;
     [SerializeField] private GameObject taskItemPrefab;
     [SerializeField] private List<TaskData> tasks;
-    public List<GameObject> taskItems = new List<GameObject>();
+    public HashSet<GameObject> taskItems = new HashSet<GameObject>();
     public bool hasFilledTaskList = false;
     private GameObject taskItemToBeRemoved = null;
 
@@ -23,7 +23,7 @@ public class TaskManagerUI : MonoBehaviour
 
     private void Update()
     {
-        if(taskItems.Count == 5)
+        if(taskItems.Count == 4)
         {
             hasFilledTaskList=true;
         }
