@@ -67,4 +67,43 @@ public class DetectEvents : MonoBehaviour
             onFinishSandwich();
         }
     }
+
+    ///Showering inprocess
+    public event Action onShowering;
+    public void Showering()
+    {
+        if (onShowering != null)
+        {
+            onShowering();
+        }
+    }
+
+    ///Showering cancelled
+    public event Action onNotShowering;
+    public void NotShowering()
+    {
+        if (onNotShowering != null)
+        {
+            onNotShowering();
+        }
+    }
+
+    public event Action onDialogue;
+    public void Dialogue()
+    {
+        if (onDialogue != null)
+        {
+            onDialogue();
+        }
+    }
+
+    public event Action onNonDialogue;
+    public void NonDialogue()
+    {
+        if (onDialogue != null)
+        {
+            onNonDialogue();
+        }
+    }
+
 }

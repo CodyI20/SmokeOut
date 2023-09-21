@@ -47,7 +47,6 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
 
-
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
@@ -80,6 +79,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode ( TextAsset inkJSON)
     {
+        GameEventsManager.instance.detectEvents.Dialogue();
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -100,6 +100,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying =false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        GameEventsManager.instance.detectEvents.NonDialogue();
 
     }
 

@@ -1,19 +1,33 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FreezingPlayer : MonoBehaviour
 {
-    void FixedUpdate()
-    {
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            this.GetComponent<PlayerMovement>().enabled = false;
 
-        }
-        if (!DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            this.GetComponent<PlayerMovement>().enabled = true;
-        }
+    private void OnEnable()
+    {
+        GameEventsManager.instance.detectEvents.onShowering += Freeze;
+        GameEventsManager.instance.detectEvents.onNotShowering += Thaw;
+        GameEventsManager.instance.detectEvents.onDialogue += Freeze;
+        GameEventsManager.instance.detectEvents.onNonDialogue += Thaw;
+
+    }
+    public void OnDisable()
+    {
+        GameEventsManager.instance.detectEvents.onShowering -= Freeze;
+        GameEventsManager.instance.detectEvents.onNotShowering -= Thaw;
+        GameEventsManager.instance.detectEvents.onDialogue -= Freeze;
+        GameEventsManager.instance.detectEvents.onNonDialogue -= Thaw;
+    }
+    void Freeze()
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+    }
+
+    void Thaw()
+    {
+        GetComponent<PlayerMovement>().enabled = true;
     }
 }

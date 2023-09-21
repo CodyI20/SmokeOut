@@ -11,6 +11,7 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private TextAsset inkJSON;
 
     private bool playerInRange;
+    private bool dialogueHasTriggered;
 
     private void Awake()
     {
@@ -27,11 +28,17 @@ public class DialogueTrigger : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                dialogueHasTriggered = true;
+            }
+            else if( dialogueHasTriggered == true )
+            {
+                Destroy(this);
             }
         }
         else
         {
             //visualCue.SetActive(false);
+
         }
     }
     
