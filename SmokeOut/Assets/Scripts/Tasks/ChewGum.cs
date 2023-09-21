@@ -44,6 +44,8 @@ public class ChewingGumInteraction : TaskStep
         {
             if (Input.GetKeyDown(interactionKey))
             {
+                if (_audioSource != null && !_audioSource.isPlaying)
+                    _audioSource.Play();
                 timeItPressed = Time.timeSinceLevelLoad;
                 hasPressedKey = true;
 
@@ -116,6 +118,8 @@ public class ChewingGumInteraction : TaskStep
         _gumBigUI.SetActive(false);
         isChewing = false;
         hasPressedKey = false;
+        if (_audioSource != null)
+            _audioSource.Stop();
         chewTimer = 0f;
     }
 

@@ -30,25 +30,11 @@ public abstract class TaskStep : MonoBehaviour
         PlayAudioSource();
         if (destoryGameObject)
         {
-            if(_audioSource != null)
-            {
-                Destroy(gameObject, _audioSource.clip.length);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
         else
         {
-            if(_audioSource != null)
-            {
-                Destroy(this, _audioSource.clip.length);
-            }
-            else
-            {
-                Destroy(this);
-            }
+            Destroy(this);
         }
     }
 

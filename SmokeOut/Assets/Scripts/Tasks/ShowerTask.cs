@@ -90,6 +90,8 @@ public class ShowerTask : TaskStep
                 Debug.Log($"timeItPressedKey: {timeItPressedKey}");
                 if (!startedTask)
                 {
+                    if (_audioSource != null)
+                        _audioSource.Play();
                     GameEventsManager.instance.detectEvents.Showering();
                     startedTask = true;
                     _currentMaterial = _changedMaterial;
@@ -138,6 +140,8 @@ public class ShowerTask : TaskStep
         _showerBigUI.SetActive(false);
         showerSlider.value = 0f;
         timePassed = 0f;
+        if (_audioSource != null)
+            _audioSource.Stop();
         GameEventsManager.instance.detectEvents.NotShowering();
     }
 

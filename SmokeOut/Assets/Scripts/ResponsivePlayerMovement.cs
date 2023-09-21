@@ -1,16 +1,16 @@
-using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 1f;
-    public float initialPlayerSpeed {  get; private set; }
+    public float initialPlayerSpeed { get; private set; }
     private Rigidbody rb;
     private Animator animator;
+    [SerializeField] private AudioSource audioSource;
 
     //Creating a player singleton for easy access to the player all the time ( Since there will only be one player )
     public static PlayerMovement player { get; private set; }
-    
+
     public float _playerSpeed
     {
         get { return playerSpeed; }
@@ -32,9 +32,17 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
         if (moveDirection.magnitude > 0)
+        {
             animator.SetBool("isWalking", true);
+            if (audioSource != null)
+                audioSource.Play();
+        }
         else
+        {
             animator.SetBool("isWalking", false);
+            if (audioSource != null)
+                audioSource.Stop();
+        }
 
         if (moveDirection != Vector3.zero)
         {
@@ -49,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayInteractAnimation()
     {
-        Debug.Log("Changing Animator!");
         animator.SetTrigger("pickingUp");
     }
 
