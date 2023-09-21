@@ -8,8 +8,8 @@ public class LevelLoader : MonoBehaviour
     //Constant values for indices
     private const int MENU_SCENE_INDEX = 0;
     private const int FIRST_SCENE_INDEX = 1;
-    private const int VICTORY_SCENE_INDEX = 2;
-    private const int GAMEOVER_SCENE_INDEX = 3;
+    private const int GAMEOVER_SCENE_INDEX = 2;
+    private const int VICTORY_SCENE_INDEX = 3;
 
     private void Awake()
     {

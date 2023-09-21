@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// These variables are static so that they persist through scene changes. This is due to the fact that the GameManager is unique
     /// </summary>
-    public static float timeToFinish = 480f;
+    public static float timeToFinish = 420f;
     private static GameObject _overlayUI;
     public static GameState _gameState;
     ///
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         {
             gameManagerInstance = this;
             DontDestroyOnLoad(gameObject);
-            PlayerHealth.OnPlayerDeath += ReloadScene;
+            PlayerHealth.OnPlayerDeath += PlayerHasDied;
             //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
         }
         else
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         {
             ToggleOverlayUI();
         }
-        if (PlayerFinishedTasks())
+        if (LevelLoader.levelLoaderInstance.GetCurrentSceneIndex() == 1 && PlayerFinishedTasks())
             ReloadScene();
     }
 

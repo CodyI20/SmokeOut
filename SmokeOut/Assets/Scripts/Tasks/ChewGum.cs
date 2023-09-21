@@ -105,6 +105,8 @@ public class ChewingGumInteraction : TaskStep
         isChewing = false;
         chewTimer = 0f;
         _gumBigUI.SetActive(false);
+        if (_audioSource != null)
+            _audioSource.Stop();
 
         TaskCompletionEvents("ChewTheGum", true);
     }

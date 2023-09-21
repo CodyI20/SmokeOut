@@ -151,6 +151,7 @@ public class ShowerTask : TaskStep
         {
             _currentMaterial = _initialMaterial;
             _showerBigUI.SetActive(false);
+            if(_audioSource != null) _audioSource.Stop();
             Debug.Log("CompletedShower!");
             GameEventsManager.instance.detectEvents.FinishShowering();
             TaskCompletionEvents("Showering");
