@@ -5,9 +5,6 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManagerInstance { get; private set; }
     //private HashSet<RequiredPickUp> _allRequiredPickUpsInScene;
     private int _scoreToWin;
-    private GameObject _menuUI;
-    private GameObject _optionsUI;
-
 
     /// <summary>
     /// These variables are static so that they persist through scene changes. This is due to the fact that the GameManager is unique
@@ -49,12 +46,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _menuUI = GameObject.FindGameObjectWithTag("MenuUI");
-        _optionsUI = GameObject.FindGameObjectWithTag("OptionsUI");
-        if (_optionsUI != null)
-        {
-            _optionsUI.SetActive(false);
-        }
         //_scoreToWin = CountAllRequiredPickUps();
         //PlayerHealth.playerHealth.OnPlayerDamageTaken += PlayerTookDamage;
     }
@@ -105,15 +96,6 @@ public class GameManager : MonoBehaviour
     void ReloadScene()
     {
         LevelLoader.levelLoaderInstance.ReloadCurrentScene();
-    }
-
-    public void ToggleMenuOptionsUI()
-    {
-        if (_menuUI && _optionsUI)
-        {
-            _menuUI.SetActive(!_menuUI.activeSelf);
-            _optionsUI.SetActive(!_optionsUI.activeSelf);
-        }
     }
 
     void Update()
