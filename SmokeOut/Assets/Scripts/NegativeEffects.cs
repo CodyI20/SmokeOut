@@ -57,8 +57,7 @@ public class NegativeEffects : MonoBehaviour
 
             if (vignette.intensity == vignette.intensity.min && _audioPlayed.volume == 0)
             {
-                isIncreasing = true;
-                timeItStartedIncreasing = Time.timeSinceLevelLoad;
+                ClearEffects();
             }
         }
     }
@@ -76,6 +75,7 @@ public class NegativeEffects : MonoBehaviour
         vignette.intensity.Override(0);
         _audioPlayed.volume = 0;
         timeItStartedIncreasing = Time.timeSinceLevelLoad;
+        isIncreasing = true;
         choicesAppear = false;
     }
 

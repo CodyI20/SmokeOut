@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isIncreasing: 1
   choicesAppear: 0
-  timeAfterWhichChoicesCanAppear: 45
+  timeAfterWhichChoicesCanAppear: 50
   vignetteIntensityChange: 0.0000301
   _audioPlayed: {fileID: 832575521}
   soundIntensityChange: 0.0000301
